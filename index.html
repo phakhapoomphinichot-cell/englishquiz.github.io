@@ -1,84 +1,44 @@
-<!doctype html>
-<html lang="th">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>เว็บฝึกศัพท์ - Multiple Choice</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>English Quiz Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>เว็บฝึกศัพท์อังกฤษ (Multiple Choice)</h1>
-      <p class="sub">แสดงคำแปลไทย → เลือกคำอังกฤษที่ตรง | เก็บสถิติบนเบราว์เซอร์</p>
-    </header>
+    <div class="container">
+        <h1>English Quiz Game</h1>
 
-    <section class="panel settings">
-      <div>
-        <label>จำนวนคำในรอบ: 
-          <select id="roundSize">
-            <option value="10">10</option>
-            <option value="15" selected>15</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-          </select>
-        </label>
-        <label>เลเวลเริ่มต้น:
-          <select id="startRank">
-            <option value="0">Novice</option>
-            <option value="1">Beginner</option>
-            <option value="2" selected>Intermediate</option>
-            <option value="3">Advanced</option>
-            <option value="4">Master</option>
-          </select>
-        </label>
-        <button id="startBtn" class="btn">เริ่มทดสอบ</button>
-        <button id="shuffleBtn" class="btn ghost">สุ่มคำศัพท์ใหม่</button>
-      </div>
-      <div class="stats" id="stats">
-        <div>แรงค์: <span id="currentRank">Novice</span></div>
-        <div>เล่นแล้ว: <span id="played">0</span></div>
-        <div>Best: <span id="bestScore">0%</span></div>
-      </div>
-    </section>
-
-    <main id="game" class="panel hidden">
-      <div class="question-area">
-        <div class="q-head">
-          <div id="qIndex">1 / 15</div>
-          <div id="qProgress" class="progress"><div id="qBar"></div></div>
+        <!-- หน้า Login -->
+        <div id="login-screen">
+            <input type="text" id="player-name" placeholder="Enter your name">
+            <button id="start-btn">Start Game</button>
         </div>
-        <div class="thai" id="thaiWord">คำแปลไทย</div>
-      </div>
 
-      <div class="choices" id="choices"></div>
-
-      <div class="game-footer">
-        <div id="feedback" class="feedback"></div>
-        <div class="controls">
-          <button id="skipBtn" class="btn ghost">ข้าม</button>
-          <button id="endBtn" class="btn red">จบเกม</button>
+        <!-- หน้าเกม -->
+        <div id="game-screen" class="hidden">
+            <div class="top-bar">
+                <span id="player-display"></span>
+                <span id="rank-display"></span>
+                <button id="increase-font">A+</button>
+                <button id="decrease-font">A-</button>
+            </div>
+            <div id="question-container">
+                <img id="question-image" src="images/default.png" alt="Image" width="150">
+                <p id="question-text"></p>
+                <div id="answers"></div>
+            </div>
+            <button id="next-btn" class="hidden">Next</button>
         </div>
-      </div>
-    </main>
 
-    <section id="result" class="panel hidden">
-      <h2>ผลการทดสอบ</h2>
-      <p>คะแนน: <span id="scorePct">0%</span></p>
-      <p>แรงค์: <strong id="resultRank">Novice</strong></p>
-      <p>คำตอบผิด (รายการ):</p>
-      <ul id="wrongList"></ul>
-      <div class="result-actions">
-        <button id="againBtn" class="btn">เล่นอีกครั้ง</button>
-        <button id="homeBtn" class="btn ghost">กลับหน้าแรก</button>
-      </div>
-    </section>
+        <!-- หน้า Score -->
+        <div id="score-screen" class="hidden">
+            <h2>Score</h2>
+            <p id="final-score"></p>
+            <button id="restart-btn">Play Again</button>
+        </div>
+    </div>
 
-    <footer>
-      <small>ไฟล์สามารถวางบน GitHub Pages ได้โดยตรง (index.html + style.css + script.js)</small>
-    </footer>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
