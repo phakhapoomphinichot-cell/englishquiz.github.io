@@ -1,0 +1,6 @@
+[
+  {"level":"easy","question":"She _____ to school every day.","choices":["go","goes","going","gone"],"answer":"goes","explanation":"She เป็นเอกพจน์ เติม s → goes","translation":"เธอไปโรงเรียนทุกวัน"},
+  {"level":"easy","question":"I _____ coffee every morning.","choices":["drink","drinks","drinking","drank"],"answer":"drink","explanation":"ประธาน I ใช้ drink ไม่เติม s","translation":"ฉันดื่มกาแฟทุกเช้า"},
+  {"level":"medium","question":"If I _____ rich, I would travel around the world.","choices":["am","was","were","be"],"answer":"were","explanation":"if clause type 2 ใช้ were กับทุกประธาน","translation":"ถ้าฉันรวย ฉันจะไปเที่ยวรอบโลก"},
+  {"level":"hard","question":"He denied _____ the documents.","choices":["to steal","steal","stealing","stolen"],"answer":"stealing","explanation":"deny ตามด้วย V-ing","translation":"เขาปฏิเสธว่าไม่ได้ขโมยเอกสาร"}
+]
