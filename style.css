@@ -1,6 +1,31 @@
-body { font-family: Arial, sans-serif; background: #f0f4f8; text-align: center; }
-.container { max-width: 700px; margin: auto; padding: 20px; }
-.hidden { display: none; }
-button { padding: 10px 20px; margin: 5px; cursor: pointer; }
-#question-container img { margin: 10px 0; }
-.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+:root{
+  --bg:#f6f7fb; --card:#fff; --accent:#2563eb; --muted:#6b7280; --danger:#ef4444;
+}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Arial;margin:0;background:var(--bg);color:#0f172a}
+.wrap{max-width:880px;margin:28px auto;padding:18px}
+header h1{margin:0;font-size:1.6rem}
+.muted{color:var(--muted);margin-top:6px}
+.panel, .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06);margin:12px 0}
+label{display:inline-flex;gap:8px;align-items:center}
+input{padding:8px;border-radius:8px;border:1px solid #e6eefb}
+.btn{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid #e6eefb}
+.btn.red{background:var(--danger)}
+.saved-info{display:flex;gap:14px;margin-top:10px;color:var(--muted)}
+.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}
+.qindex{font-weight:600;color:var(--muted);margin-bottom:8px}
+.question{font-size:20px;font-weight:700;margin-bottom:8px}
+.hint{color:var(--muted);margin-bottom:12px}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.choiceBtn{padding:12px;border-radius:10px;border:1px solid #eef2ff;background:white;cursor:pointer;text-align:left;box-shadow:0 2px 6px rgba(2,6,23,0.04)}
+.choiceBtn:hover{transform:translateY(-2px)}
+.choiceBtn.correct{background:#ecfdf5;border-color:#10b981}
+.choiceBtn.wrong{background:#fff1f2;border-color:#f43f5e}
+.feedback{min-height:24px;margin-top:10px;color:var(--muted)}
+.controls{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+.small-controls{margin-top:10px;display:flex;justify-content:flex-end}
+.hidden{display:none}
+.result-actions{display:flex;gap:8px;margin-top:12px}
+footer{color:var(--muted);text-align:center;margin-top:12px}
+@media(max-width:640px){.choices{grid-template-columns:1fr}.topline{flex-direction:column;align-items:flex-start}}
