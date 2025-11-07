@@ -64,7 +64,6 @@ const WORDS = [
   { en: "night", th: "กลางคืน" },
   { en: "day", th: "วัน" },
   { en: "rain", th: "ฝน" }
-[
   { en: "algorithm", th: "อัลกอริทึม; กระบวนการคำนวณ" },
   { en: "analysis", th: "การวิเคราะห์" },
   { en: "architecture", th: "สถาปัตยกรรม" },
@@ -115,8 +114,6 @@ const WORDS = [
   { en: "inference", th: "การอนุมาน" },
   { en: "derivation", th: "การได้มาจาก" },
   { en: "iteration", th: "การวนซ้ำ" }
-]
-[
   { en: "acknowledge", th: "รับทราบ" },
   { en: "allocate", th: "จัดสรร" },
   { en: "amendment", th: "การแก้ไขเพิ่มเติม (กฎหมายหรือเอกสาร)" },
@@ -167,12 +164,6 @@ const WORDS = [
   { en: "justification", th: "เหตุผลที่อธิบายสนับสนุน" },
   { en: "partnership", th: "ความร่วมมือ" },
   { en: "submission", th: "การส่งเอกสาร" }
-]
-
-
-];
-
-
 ];
 // ---------- Utilities ----------
 const $ = id => document.getElementById(id);
