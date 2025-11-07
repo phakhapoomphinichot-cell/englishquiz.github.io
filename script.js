@@ -1,24 +1,69 @@
+// script.js (updated for vocab-only quiz + mixed difficulty + cumulative rank thresholds)
+
+// ---------- CONFIG ----------
+const TOTAL_PER_ROUND = 30; // จำนวนคำต่อรอบ (ปรับได้)
+const STORAGE_KEY = 'ev_players'; // localStorage key
+// Rank thresholds are based on cumulative totalCorrect
+const RANKS = [
+  { name: 'Novice', min: 0 },
+  { name: 'Beginner', min: 10 },
+  { name: 'Intermediate', min: 30 },
+  { name: 'Advanced', min: 60 },
+  { name: 'Expert', min: 100 } 
+];
+
 const WORDS = [
-  { en: "apple", th: "แอปเปิล" },
+  { en: "apple", th: "แอปเปิล; ผลไม้" },
   { en: "book", th: "หนังสือ" },
   { en: "cat", th: "แมว" },
   { en: "dog", th: "สุนัข" },
-  { en: "car", th: "รถยนต์" },
-  { en: "computer", th: "คอมพิวเตอร์" },
-  { en: "teacher", th: "ครู" },
-  { en: "school", th: "โรงเรียน" },
-  { en: "music", th: "ดนตรี" },
-  { en: "phone", th: "โทรศัพท์" },
-  { en: "water", th: "น้ำ" },
   { en: "food", th: "อาหาร" },
+  { en: "water", th: "น้ำ" },
   { en: "house", th: "บ้าน" },
-  { en: "love", th: "ความรัก" },
-  { en: "friend", th: "เพื่อน" },
-  { en: "sun", th: "ดวงอาทิตย์" },
-  { en: "rain", th: "ฝน" },
+  { en: "car", th: "รถยนต์" },
+  { en: "school", th: "โรงเรียน" },
+  { en: "teacher", th: "ครู" },
+  { en: "student", th: "นักเรียน" },
+  { en: "table", th: "โต๊ะ" },
+  { en: "chair", th: "เก้าอี้" },
+  { en: "pen", th: "ปากกา" },
+  { en: "pencil", th: "ดินสอ" },
+  { en: "door", th: "ประตู" },
+  { en: "window", th: "หน้าต่าง" },
+  { en: "computer", th: "คอมพิวเตอร์" },
+  { en: "phone", th: "โทรศัพท์" },
+  { en: "music", th: "ดนตรี" },
+  { en: "movie", th: "ภาพยนตร์" },
+  { en: "city", th: "เมือง" },
+  { en: "country", th: "ประเทศ" },
+  { en: "job", th: "งาน" },
   { en: "money", th: "เงิน" },
   { en: "family", th: "ครอบครัว" },
-  { en: "time", th: "เวลา" },
+  { en: "friend", th: "เพื่อน" },
+  { en: "love", th: "ความรัก" },
+  { en: "happy", th: "มีความสุข" },
+  { en: "sad", th: "เศร้า" },
+  { en: "fast", th: "เร็ว" },
+  { en: "slow", th: "ช้า" },
+  { en: "big", th: "ใหญ่" },
+  { en: "small", th: "เล็ก" },
+  { en: "close", th: "ปิด" },        
+  { en: "open", th: "เปิด" },
+  { en: "clean", th: "สะอาด" },
+  { en: "dirty", th: "สกปรก" },
+  { en: "strong", th: "แข็งแรง" },
+  { en: "weak", th: "อ่อนแอ" },
+  { en: "hot", th: "ร้อน" },
+  { en: "cold", th: "เย็น" },
+  { en: "beautiful", th: "สวยงาม" },
+  { en: "ugly", th: "น่าเกลียด" },
+  { en: "easy", th: "ง่าย" },
+  { en: "difficult", th: "ยาก" },
+  { en: "morning", th: "เช้า" },
+  { en: "evening", th: "เย็น" },
+  { en: "night", th: "กลางคืน" },
+  { en: "day", th: "วัน" },
+  { en: "rain", th: "ฝน" },
   { en: "algorithm", th: "อัลกอริทึม; กระบวนการคำนวณ" },
   { en: "analysis", th: "การวิเคราะห์" },
   { en: "architecture", th: "สถาปัตยกรรม" },
@@ -54,6 +99,7 @@ const WORDS = [
   { en: "variable", th: "ตัวแปร" },
   { en: "velocity", th: "ความเร็ว" },
   { en: "voltage", th: "แรงดันไฟฟ้า" },
+  { en: "architecture", th: "โครงสร้างระบบ" },
   { en: "database", th: "ฐานข้อมูล" },
   { en: "encryption", th: "การเข้ารหัส" },
   { en: "neuron", th: "เซลล์ประสาท" },
@@ -64,12 +110,10 @@ const WORDS = [
   { en: "optimization", th: "การทำให้เหมาะสมที่สุด" },
   { en: "criterion", th: "เกณฑ์การประเมิน" },
   { en: "sustainability", th: "ความยั่งยืน" },
+  { en: "ecosystem", th: "ระบบนิเวศ" },
   { en: "inference", th: "การอนุมาน" },
   { en: "derivation", th: "การได้มาจาก" },
   { en: "iteration", th: "การวนซ้ำ" },
-  { en: "mechanical", th: "เชิงกล" },
-  { en: "hypothesis", th: "สมมติฐาน" },
-  { en: "automation", th: "ระบบอัตโนมัติ" },
   { en: "acknowledge", th: "รับทราบ" },
   { en: "allocate", th: "จัดสรร" },
   { en: "amendment", th: "การแก้ไขเพิ่มเติม (กฎหมายหรือเอกสาร)" },
@@ -120,146 +164,372 @@ const WORDS = [
   { en: "justification", th: "เหตุผลที่อธิบายสนับสนุน" },
   { en: "partnership", th: "ความร่วมมือ" },
   { en: "submission", th: "การส่งเอกสาร" },
-  { en: "petrichor", th: "กลิ่นของดินหลังฝนตก" },
-  { en: "serendipity", th: "การพบสิ่งดีๆ โดยบังเอิญ" },
-  { en: "ephemeral", th: "สิ่งที่อยู่ชั่วคราว; ไม่ยั่งยืน" },
-  {en:"acquire", th:"ได้มา; เข้าครอบครอง"},
-  {en:"allocate", th:"จัดสรร; แบ่งส่วน"},
-  {en:"amend", th:"แก้ไข; ปรับปรุง"},
-  {en:"assess", th:"ประเมิน; ตรวจสอบ"},
-  {en:"attain", th:"บรรลุ; ได้รับ"},
-  {en:"authorize", th:"อนุมัติ; ให้อำนาจ"},
-  {en:"commence", th:"เริ่มต้น; เปิดฉาก"},
-  {en:"confer", th:"ปรึกษา; มอบ (รางวัล, ปริญญา)"},
-  {en:"comply", th:"ปฏิบัติตาม; เชื่อฟัง"},
-  {en:"constitute", th:"ประกอบขึ้น; ตั้งเป็น"},
-  {en:"contribute", th:"บริจาค; สนับสนุน"},
-  {en:"convene", th:"จัดประชุม; เรียกประชุม"},
-  {en:"correspond", th:"สอดคล้องกัน; ตรงกัน"},
-  {en:"derive", th:"ได้มาจาก; สืบเนื่องจาก"},
-  {en:"designate", th:"แต่งตั้ง; กำหนด"},
-  {en:"evaluate", th:"ประเมินผล; ตัดสิน"},
-  {en:"facilitate", th:"อำนวยความสะดวก"},
-  {en:"implement", th:"ดำเนินการ; ใช้งาน"},
-  {en:"indicate", th:"แสดงให้เห็น; บ่งบอก"},
-  {en:"maintain", th:"รักษาไว้; ดำรงไว้"},
-  {en:"obtain", th:"ได้รับ; ครอบครอง"},
-  {en:"proceed", th:"ดำเนินต่อ; ก้าวต่อไป"},
-  {en:"restrict", th:"จำกัด; ควบคุม"},
-  {en:"specify", th:"ระบุ; กำหนด"},
-  {en:"subsequent", th:"ภายหลัง; ตามมา"},
-  {en:"anomaly", th:"ความผิดปกติ; สิ่งที่แตกต่าง"},
-  {en:"conundrum", th:"ปัญหาซับซ้อน; ปริศนา"},
-  {en:"dichotomy", th:"การแบ่งออกเป็นสองส่วนที่ต่างกัน"},
-  {en:"paradigm", th:"แบบจำลอง; กรอบความคิด"},
-  {en:"ubiquitous", th:"มีอยู่ทั่วไป; พบเห็นได้ทุกที่"},
-  {en:"lucid", th:"ชัดเจน; เข้าใจง่าย"},
-  {en:"myriad", th:"จำนวนมหาศาล"},
-  {en:"nostalgia", th:"ความคิดถึงอดีต"},
-  {en:"oblivion", th:"การหลงลืม; การสูญหาย"},
-  {en:"omnipotent", th:"ทรงพลังที่สุด; มีอำนาจไม่จำกัด"},
-  {en:"quintessential", th:"ตัวอย่างที่สมบูรณ์แบบ; แก่นแท้"},
-  {en:"resilient", th:"ฟื้นตัวได้เร็ว; ยืดหยุ่น"},
-  {en:"sublime", th:"ประเสริฐ; งดงาม"},
-  {en:"tenacious", th:"ไม่ยอมแพ้; ยึดมั่น"},
-  {en:"vicarious", th:"รู้สึกแทน; ประสบแทน"},
-  {en:"melancholy", th:"เศร้าลึก; เหงา"},
-  {en:"eloquent", th:"พูดเก่ง; มีวาทศิลป์"},
-  {en:"meticulous", th:"ละเอียดรอบคอบ"},
-  {en:"altruism", th:"ความไม่เห็นแก่ตัว; เอื้อเฟื้อผู้อื่น"},
-  {en:"catalyst", th:"ตัวเร่ง; สิ่งกระตุ้นให้เกิดการเปลี่ยนแปลง"},
-  {en:"ephemeral", th:"ชั่วคราว; ไม่ยั่งยืน"},
-  {en:"serendipity", th:"การบังเอิญพบสิ่งดี ๆ"},
-  {en:"solitude", th:"ความโดดเดี่ยว; การอยู่ลำพังอย่างสงบ"},
-  {en:"zenith", th:"จุดสูงสุด; ขีดสุด"},
-  {en:"obscure", th:"ไม่ชัดเจน; คลุมเครือ"}
+  {en:"rain", th:"ฝน"},
+{en:"sun", th:"ดวงอาทิตย์"},
+{en:"moon", th:"ดวงจันทร์"},
+{en:"star", th:"ดาว"},
+{en:"bird", th:"นก"},
+{en:"fish", th:"ปลา"},
+{en:"tree", th:"ต้นไม้"},
+{en:"flower", th:"ดอกไม้"},
+{en:"shoe", th:"รองเท้า"},
+{en:"shirt", th:"เสื้อเชิ้ต"},
+{en:"pants", th:"กางเกง"},
+{en:"bed", th:"เตียงนอน"},
+{en:"window", th:"หน้าต่าง"},
+{en:"door", th:"ประตู"},
+{en:"milk", th:"นม"},
+{en:"egg", th:"ไข่"},
+{en:"bread", th:"ขนมปัง"},
+{en:"juice", th:"น้ำผลไม้"},
+{en:"bus", th:"รถบัส"},
+{en:"train", th:"รถไฟ"},
+{en:"city", th:"เมือง"},
+{en:"village", th:"หมู่บ้าน"},
+{en:"river", th:"แม่น้ำ"},
+{en:"mountain", th:"ภูเขา"},
+{en:"sea", th:"ทะเล"},
+{en:"teacher", th:"ครู"},
+{en:"doctor", th:"หมอ"},
+{en:"friend", th:"เพื่อน"},
+{en:"family", th:"ครอบครัว"},
+{en:"music", th:"ดนตรี"},
+{en:"game", th:"เกม"},
+{en:"time", th:"เวลา"},
+{en:"smile", th:"รอยยิ้ม"},
+{en:"sleep", th:"นอนหลับ"},
+  {en:"abolish", th:"ยกเลิก; ล้มเลิก"},
+{en:"advocate", th:"สนับสนุน; เสนอ"},
+{en:"apprehend", th:"จับกุม; เข้าใจ"},
+{en:"articulate", th:"พูดชัดเจน; แสดงออกดี"},
+{en:"assertive", th:"มั่นใจในตนเอง"},
+{en:"benevolent", th:"มีเมตตา"},
+{en:"coherent", th:"สอดคล้อง; มีเหตุผล"},
+{en:"collaborate", th:"ร่วมมือกัน"},
+{en:"contemplate", th:"ครุ่นคิด; พิจารณา"},
+{en:"credible", th:"น่าเชื่อถือ"},
+{en:"cumbersome", th:"เทอะทะ; ยุ่งยาก"},
+{en:"deteriorate", th:"เสื่อมลง"},
+{en:"elaborate", th:"อธิบายเพิ่มเติม; ซับซ้อน"},
+{en:"emphasize", th:"เน้นย้ำ"},
+{en:"eradicate", th:"กำจัด; ทำลาย"},
+{en:"formulate", th:"กำหนด; สร้างขึ้น"},
+{en:"illicit", th:"ผิดกฎหมาย"},
+{en:"immerse", th:"จดจ่อ; แช่"},
+{en:"impartial", th:"ไม่ลำเอียง"},
+{en:"innovate", th:"คิดค้นสิ่งใหม่"},
+{en:"integrate", th:"รวมเข้าด้วยกัน"},
+{en:"magnify", th:"ขยาย; ทำให้ใหญ่ขึ้น"},
+{en:"negotiate", th:"เจรจา"},
+{en:"perceive", th:"รับรู้"},
+{en:"precise", th:"แม่นยำ"},
+{en:"refute", th:"โต้แย้ง; หักล้าง"},
+{en:"scrutinize", th:"ตรวจสอบอย่างละเอียด"},
+{en:"simulate", th:"จำลอง; เลียนแบบ"},
+{en:"substantiate", th:"พิสูจน์; ยืนยัน"},
+{en:"sustain", th:"รักษาไว้; ค้ำจุน"},
+{en:"transcend", th:"อยู่เหนือ; ก้าวข้าม"},
+{en:"undermine", th:"บ่อนทำลาย"},
+{en:"validate", th:"ตรวจสอบความถูกต้อง"},
+{en:"withstand", th:"ต้านทาน; อดทนต่อ"},
+{en:"yield", th:"ให้ผลผลิต; ยอมแพ้"},
+  {en:"agree", th:"เห็นด้วย"},
+{en:"believe", th:"เชื่อ"},
+{en:"choose", th:"เลือก"},
+{en:"decide", th:"ตัดสินใจ"},
+{en:"imagine", th:"จินตนาการ"},
+{en:"invite", th:"เชิญ"},
+{en:"lend", th:"ให้ยืม"},
+{en:"borrow", th:"ยืม"},
+{en:"prepare", th:"เตรียม"},
+{en:"promise", th:"สัญญา"},
+{en:"remember", th:"จำได้"},
+{en:"forget", th:"ลืม"},
+{en:"explain", th:"อธิบาย"},
+{en:"describe", th:"บรรยาย"},
+{en:"improve", th:"พัฒนา"},
+{en:"discuss", th:"อภิปราย"},
+{en:"arrive", th:"มาถึง"},
+{en:"depart", th:"ออกเดินทาง"},
+{en:"expect", th:"คาดหวัง"},
+{en:"prefer", th:"ชอบมากกว่า"},
+{en:"realize", th:"ตระหนัก"},
+{en:"reduce", th:"ลดลง"},
+{en:"increase", th:"เพิ่มขึ้น"},
+{en:"create", th:"สร้าง"},
+{en:"discover", th:"ค้นพบ"},
+{en:"protect", th:"ปกป้อง"},
+{en:"develop", th:"พัฒนา"},
+{en:"include", th:"รวมถึง"},
+{en:"support", th:"สนับสนุน"},
+{en:"share", th:"แบ่งปัน"},
+{en:"compare", th:"เปรียบเทียบ"},
+{en:"examine", th:"ตรวจสอบ"},
+{en:"suggest", th:"แนะนำ"},
+{en:"solve", th:"แก้ปัญหา"},
 ];
+  
+const $ = id => document.getElementById(id);
+function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]); }
 
-// ค่าตัวแปรเกม
-let score = 0;
-let currentWord = null;
-let options = [];
-let playerName = "";
+// load/save players
+function loadPlayers(){
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+  catch(e) { return {}; }
+}
+function savePlayers(obj){ localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }
 
-const rankLevels = [
-  { min: 0, name: "Rookie" },
-  { min: 20, name: "Beginner" },
-  { min: 50, name: "Intermediate" },
-  { min: 80, name: "Advanced" },
-  { min: 100, name: "Master" }
-];
+// rank calc by cumulative totalCorrect
+function calcRank(totalCorrect){
+  // find highest rank whose min <= totalCorrect
+  let last = RANKS[0].name;
+  for(let i=0;i<RANKS.length;i++){
+    if(totalCorrect >= RANKS[i].min) last = RANKS[i].name;
+  }
+  return last;
+}
 
-// เริ่มเกม
-document.getElementById("start-btn").addEventListener("click", () => {
-  const input = document.getElementById("username");
-  playerName = input.value.trim();
-  if (playerName === "") return alert("กรุณาใส่ชื่อก่อนเริ่ม!");
+// difficulty split helper
+function splitByDifficulty(words){
+  // Assume WORDS length >= 500; map index ranges to difficulty:
+  // easy: first 200, medium: next 200, hard: last 100
+  const easy = [], medium = [], hard = [];
+  const N = words.length;
+  const eCut = Math.floor(N * 0.4);   // ~40% easiest
+  const mCut = Math.floor(N * 0.8);   // next 40%
+  for(let i=0;i<N;i++){
+    if(i < eCut) easy.push(words[i]);
+    else if(i < mCut) medium.push(words[i]);
+    else hard.push(words[i]);
+  }
+  return { easy, medium, hard };
+}
 
-  document.getElementById("login-container").style.display = "none";
-  document.getElementById("game-container").style.display = "block";
-  document.getElementById("player-name").textContent = playerName;
+// pick distractor translations (thai) distinct from correct
+function pickThaiDistractors(correctEn, count=3){
+  const pool = WORDS.filter(w => w.en !== correctEn);
+  const picked = shuffle(pool).slice(0, count);
+  return picked.map(p => p.th);
+}
 
-  nextQuestion();
+// generate a vocab-only question (ask "What is 'en'?" with Thai options)
+function makeVocabQuestion(wordObj){
+  const correctTH = wordObj.th;
+  const distractors = pickThaiDistractors(wordObj.en, 3);
+  const opts = shuffle([correctTH, ...distractors]);
+  return {
+    type: 'vocab',
+    question: wordObj.en,
+    options: opts,
+    answer: opts.indexOf(correctTH),
+    explanation: `${wordObj.en} แปลว่า ${wordObj.th}` // explanation shown after answer
+  };
+}
+
+// generate a quiz of `total` questions mixing difficulties
+function generateQuiz(total){
+  // Ensure WORDS exists and is large enough
+  if(!Array.isArray(WORDS) || WORDS.length < 50){
+    throw new Error('WORDS array is missing or too small — ต้องมี WORDS (500 คำ) ในสคริปต์ก่อนเรียก generateQuiz');
+  }
+
+  const { easy, medium, hard } = splitByDifficulty(WORDS);
+
+  // mix ratios (you can tune these)
+  const ratio = { easy: 0.5, medium: 0.35, hard: 0.15 };
+  const easyCount = Math.round(total * ratio.easy);
+  const mediumCount = Math.round(total * ratio.medium);
+  let hardCount = total - easyCount - mediumCount;
+
+  // pick samples
+  const pick = (arr, n) => shuffle(arr).slice(0, Math.min(n, arr.length));
+  const selected = [...pick(easy, easyCount), ...pick(medium, mediumCount), ...pick(hard, hardCount)];
+  // if due to rounding we have less than total, fill from full pool
+  if(selected.length < total){
+    const needed = total - selected.length;
+    const extras = shuffle(WORDS.filter(w => !selected.includes(w))).slice(0, needed);
+    selected.push(...extras);
+  }
+  // convert each to vocab question
+  return shuffle(selected).map(w => makeVocabQuestion(w));
+}
+
+// ---------- App state & DOM refs ----------
+const players = loadPlayers();
+let currentPlayer = null;
+let questions = [];
+let qIndex = 0;
+let correct = 0;
+let wrongList = [];
+let fontSize = 18;
+
+const btnStart = $('btnStart');
+const playerNameInput = $('playerName');
+const loginSection = $('login');
+const gameSection = $('game');
+const resultSection = $('result');
+const playerDisplay = $('playerDisplay');
+const rankDisplay = $('rankDisplay');
+const scoreDisplay = $('scoreDisplay');
+const qIndexEl = $('qIndex');
+const questionText = $('questionText');
+const translationHint = $('translationHint');
+const choicesEl = $('choices');
+const feedbackEl = $('feedback');
+const btnNext = $('btnNext');
+const btnEnd = $('btnEnd');
+const fontInc = $('fontInc');
+const fontDec = $('fontDec');
+const currentPlayerEl = $('currentPlayer');
+const currentRankEl = $('currentRank');
+const bestScoreEl = $('bestScore');
+const resultSummary = $('resultSummary');
+const resultRank = $('resultRank');
+const wrongListEl = $('wrongList');
+const btnPlayAgain = $('btnPlayAgain');
+const btnBackHome = $('btnBackHome');
+
+// update saved UI
+function updateSavedUI(){
+  currentPlayerEl.textContent = '-';
+  currentRankEl.textContent = '-';
+  bestScoreEl.textContent = '-';
+  const last = localStorage.getItem('ev_last_player');
+  if(last && players[last]){
+    currentPlayerEl.textContent = last;
+    currentRankEl.textContent = players[last].rank || 'Novice';
+    bestScoreEl.textContent = (players[last].best===undefined)?'-':players[last].best+'%';
+  }
+}
+updateSavedUI();
+
+// ---------- UI & Flow ----------
+btnStart.addEventListener('click', () => {
+  const name = playerNameInput.value.trim();
+  if(!name){ alert('กรุณาใส่ชื่อผู้เล่น'); return; }
+  currentPlayer = name;
+  localStorage.setItem('ev_last_player', name);
+  if(!players[name]) players[name] = { best: 0, played: 0, rank: 'Novice', totalCorrect: 0 };
+  savePlayers(players);
+  startRound();
+  updateSavedUI();
 });
 
-function nextQuestion() {
-  currentWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+function startRound(){
+  // reset round state
+  questions = generateQuiz(TOTAL_PER_ROUND);
+  qIndex = 0; correct = 0; wrongList = [];
+  playerDisplay.textContent = currentPlayer;
+  // show UI
+  gameSection.classList.remove('hidden');
+  loginSection.classList.add('hidden');
+  $('scoreDisplay').textContent = '0';
+  $('totalQ').textContent = TOTAL_PER_ROUND;
+  renderQuestion();
+}
 
-  // สร้างตัวเลือกสุ่ม 4 ตัว (1 ถูก + 3 ผิด)
-  options = [currentWord.th];
-  while (options.length < 4) {
-    const randomWord = WORDS[Math.floor(Math.random() * WORDS.length)].th;
-    if (!options.includes(randomWord)) options.push(randomWord);
-  }
-  shuffle(options);
-
-  document.getElementById("question-container").textContent =
-    `คำว่า "${currentWord.en}" แปลว่าอะไร?`;
-
-  const optionsContainer = document.getElementById("options-container");
-  optionsContainer.innerHTML = "";
-  options.forEach((opt, i) => {
-    const btn = document.createElement("button");
-    btn.textContent = opt;
-    btn.onclick = () => checkAnswer(opt);
-    optionsContainer.appendChild(btn);
+function renderQuestion(){
+  const q = questions[qIndex];
+  qIndexEl.textContent = `${qIndex+1} / ${questions.length}`;
+  questionText.textContent = `What is "${q.question}"?`;
+  translationHint.textContent = 'เลือกคำแปลภาษาไทยที่ถูกต้อง';
+  choicesEl.innerHTML = '';
+  q.options.forEach((opt, idx) => {
+    const b = document.createElement('button');
+    b.className = 'choiceBtn';
+    b.textContent = opt;
+    b.style.fontSize = fontSize + 'px';
+    b.onclick = () => handleChoice(b, idx);
+    choicesEl.appendChild(b);
   });
+  feedbackEl.textContent = '';
+  btnNext.classList.add('hidden');
 }
 
-// ตรวจคำตอบ
-function checkAnswer(selected) {
-  const feedbackImg = document.getElementById("feedback-img");
-  const correct = selected === currentWord.th;
-
-  if (correct) {
-    score++;
-    feedbackImg.src = "images/correct.png";
+function handleChoice(btn, idx){
+  const q = questions[qIndex];
+  // disable all choices
+  Array.from(choicesEl.children).forEach(c => c.disabled = true);
+  if(idx === q.answer){
+    btn.classList.add('correct');
+    correct++;
+    feedbackEl.textContent = 'ถูกต้อง! ' + (q.explanation || '');
   } else {
-    feedbackImg.src = "images/wrong.png";
+    btn.classList.add('wrong');
+    feedbackEl.textContent = `ผิด — คำตอบที่ถูกคือ: ${q.options[q.answer]} — ${q.explanation || ''}`;
+    // highlight correct
+    Array.from(choicesEl.children)[q.answer].classList.add('correct');
+    wrongList.push({ q: q.question, your: q.options[idx], correct: q.options[q.answer] });
   }
-
-  feedbackImg.style.display = "block";
-  document.getElementById("score").textContent = score;
-  updateRank();
-
-  setTimeout(() => {
-    feedbackImg.style.display = "none";
-    nextQuestion();
-  }, 1000);
+  scoreDisplay.textContent = correct;
+  btnNext.classList.remove('hidden');
 }
 
-function updateRank() {
-  const rank = rankLevels
-    .slice()
-    .reverse()
-    .find(r => score >= r.min)?.name || "Rookie";
-  document.getElementById("rank").textContent = rank;
-}
+btnNext.addEventListener('click', () => {
+  qIndex++;
+  if(qIndex < questions.length) renderQuestion();
+  else finishRound();
+});
 
-// ฟังก์ชันสับลำดับ array
-function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+btnEnd.addEventListener('click', () => {
+  if(confirm('ต้องการจบเกมก่อนหรือไม่?')) finishRound();
+});
+
+function finishRound(){
+  // round pct
+  const pct = Math.round((correct / questions.length) * 100);
+  // update player cumulative stats
+  players[currentPlayer] = players[currentPlayer] || { best:0,played:0,rank:'Novice', totalCorrect:0 };
+  players[currentPlayer].played = (players[currentPlayer].played||0) + 1;
+  players[currentPlayer].totalCorrect = (players[currentPlayer].totalCorrect||0) + correct; // cumulative
+  // update best pct for this round if higher
+  if(pct > (players[currentPlayer].best||0)) players[currentPlayer].best = pct;
+  // update rank by cumulative totalCorrect (Expert needs >=100)
+  players[currentPlayer].rank = calcRank(players[currentPlayer].totalCorrect);
+  savePlayers(players);
+
+  // show results
+  gameSection.classList.add('hidden');
+  resultSection.classList.remove('hidden');
+  resultSummary.textContent = `${currentPlayer}, คุณได้ ${correct} / ${questions.length} (${pct}%). (สะสมถูกทั้งหมด ${players[currentPlayer].totalCorrect})`;
+  resultRank.textContent = players[currentPlayer].rank;
+
+  wrongListEl.innerHTML = '';
+  if(wrongList.length === 0){
+    wrongListEl.innerHTML = '<li>ไม่มีคำตอบผิด — เยี่ยมมาก!</li>';
+  } else {
+    wrongList.forEach(w => {
+      const li = document.createElement('li');
+      li.textContent = `${w.q} — ถูก: ${w.correct} / คุณตอบ: ${w.your}`;
+      wrongListEl.appendChild(li);
+    });
   }
+  updateSavedUI();
 }
+
+$('btnPlayAgain').addEventListener('click', () => {
+  resultSection.classList.add('hidden');
+  startRound();
+});
+
+$('btnBackHome').addEventListener('click', () => {
+  resultSection.classList.add('hidden');
+  loginSection.classList.remove('hidden');
+  localStorage.setItem('ev_last_player', currentPlayer);
+  updateSavedUI();
+});
+
+// font controls
+fontInc.addEventListener('click', () => {
+  fontSize = Math.min(30, fontSize + 2);
+  document.querySelectorAll('.choiceBtn').forEach(b => b.style.fontSize = fontSize + 'px');
+  questionText.style.fontSize = (fontSize+2) + 'px';
+});
+fontDec.addEventListener('click', () => {
+  fontSize = Math.max(12, fontSize - 2);
+  document.querySelectorAll('.choiceBtn').forEach(b => b.style.fontSize = fontSize + 'px');
+  questionText.style.fontSize = (fontSize+2) + 'px';
+});
+
+// init expose
+window.$ = $;
