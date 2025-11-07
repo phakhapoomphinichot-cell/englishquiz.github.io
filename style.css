@@ -1,40 +1,40 @@
-body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f2f2f2;
-  padding: 20px;
+:root{
+  --bg:#f6f7fb; --card:#ffffff; --accent:#2563eb; --muted:#6b7280; --danger:#ef4444;
+}
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans",Helvetica,Arial; margin:0; background:var(--bg); color:#0f172a}
+.container{max-width:980px;margin:28px auto;padding:20px}
+header{margin-bottom:18px}
+h1{margin:0;font-size:1.6rem}
+.sub{color:var(--muted); margin-top:6px}
+.panel{background:var(--card); padding:16px; border-radius:12px; box-shadow:0 6px 18px rgba(15,23,42,0.06); margin-bottom:14px}
+.settings{display:flex; justify-content:space-between; align-items:center; gap:12px}
+.settings label{margin-right:10px}
+.btn{background:var(--accent); color:white; border:0; padding:8px 12px; border-radius:8px; cursor:pointer}
+.btn.ghost{background:transparent; color:var(--accent); border:1px solid #e6eefb}
+.btn.red{background:var(--danger)}
+.stats{display:flex; gap:16px; color:var(--muted)}
+.hidden{display:none}
+.question-area{padding:8px 4px}
+.q-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px}
+.q-head #qIndex{font-weight:600}
+.progress{flex:1;margin-left:12px;height:8px;background:#eef2ff;border-radius:8px;overflow:hidden}
+#qBar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),#7dd3fc)}
+.thai{font-size:1.6rem;font-weight:700;margin:10px 0;color:#111827}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.choice-btn{padding:12px;border-radius:10px;border:1px solid #eef2ff;background:white;cursor:pointer;text-align:left; box-shadow:0 2px 6px rgba(2,6,23,0.04)}
+.choice-btn:hover{transform:translateY(-2px)}
+.choice-btn.correct{background:#ecfdf5;border-color:#10b981}
+.choice-btn.wrong{background:#fff1f2;border-color:#f43f5e}
+.feedback{margin-top:10px; min-height:22px; color:var(--muted)}
+.game-footer{margin-top:12px; display:flex; justify-content:space-between; align-items:center}
+.controls{display:flex; gap:8px}
+#result h2{margin-top:0}
+#wrongList{max-height:220px; overflow:auto; padding-left:18px}
+.result-actions{display:flex; gap:8px; margin-top:12px}
+footer{margin-top:14px; color:var(--muted); text-align:center}
+@media(max-width:640px){
+  .choices{grid-template-columns:1fr}
+  .settings{flex-direction:column; align-items:flex-start}
 }
 
-.container {
-  max-width: 600px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-
-.hidden {
-  display: none;
-}
-
-button {
-  padding: 10px 20px;
-  margin: 5px;
-  cursor: pointer;
-}
-
-#optionsContainer button {
-  display: block;
-  width: 100%;
-  margin: 5px 0;
-}
-
-#questionImage {
-  max-width: 100%;
-  height: auto;
-}
-
-.controls button {
-  font-size: 16px;
-}
