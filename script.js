@@ -1,6 +1,5 @@
-// Script to run the quiz using the questions loaded from questions.json (window.ALL_QUESTIONS)
 const TOTAL_PER_DAY = 10;
-const QUESTIONS = window.ALL_QUESTIONS || [];
+const QUESTIONS = window.ALLQUESTIONS || [];
 const $ = (id) => document.getElementById(id);
 
 const startBtn = $('start-btn');
