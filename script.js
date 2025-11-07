@@ -1,160 +1,108 @@
-const TOTAL_PER_DAY = 10;
-const QUESTIONS = window.ALLQUESTIONS || [];
-const $ = (id) => document.getElementById(id);
-
-const startBtn = $('start-btn');
-const startScreen = $('start-screen');
-const quizEl = $('quiz');
-const questionEl = $('question');
-const choicesEl = $('choices');
-const explanationEl = $('explanation');
-const nextBtn = $('next-btn');
-const progressEl = $('current');
-const resultEl = $('result');
-const scoreText = $('score-text');
-const resultDetail = $('result-detail');
-const restartBtn = $('restart-btn');
-
-let todaysSet = [];
+let allQuestions = [];
+let todayQuestions = [];
 let currentIndex = 0;
 let score = 0;
+const today = new Date().toLocaleDateString();
 
-function formatDate(d){
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,'0');
-  const day = String(d.getDate()).padStart(2,'0');
-  return `${y}-${m}-${day}`;
+const questionEl = document.getElementById("question");
+const choicesEl = document.getElementById("choices");
+const explanationEl = document.getElementById("explanation");
+const nextBtn = document.getElementById("next-btn");
+const quizContainer = document.getElementById("quiz-container");
+const scoreContainer = document.getElementById("score-container");
+const scoreText = document.getElementById("score");
+
+async function loadQuestions() {
+  const res = await fetch("questions.json");
+  allQuestions = await res.json();
+  startQuiz();
 }
 
-function sample(arr, n){
-  const copy = arr.slice();
-  const out = [];
-  for(let i=0;i<n && copy.length;i++){
-    const idx = Math.floor(Math.random()*copy.length);
-    out.push(copy.splice(idx,1)[0]);
-  }
-  return out;
-}
+function startQuiz() {
+  const savedDate = localStorage.getItem("quizDate");
+  const savedSet = localStorage.getItem("quizSet");
 
-function pickTodaysQuestions(allQuestions){
-  const byLevel = { easy:[], medium:[], hard:[] };
-  allQuestions.forEach(q => byLevel[q.level]?.push(q));
-
-  const need = { easy:4, medium:4, hard:2 };
-  let selected = [];
-  selected = selected.concat(sample(byLevel.easy, need.easy));
-  selected = selected.concat(sample(byLevel.medium, need.medium));
-  selected = selected.concat(sample(byLevel.hard, need.hard));
-
-  // fill if shortage
-  while(selected.length < TOTAL_PER_DAY){
-    const pool = allQuestions.slice().filter(q=>!selected.includes(q));
-    if(!pool.length) break;
-    selected.push(pool[Math.floor(Math.random()*pool.length)]);
-  }
-
-  // shuffle
-  for(let i=selected.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [selected[i], selected[j]] = [selected[j], selected[i]];
-  }
-  return selected;
-}
-
-function saveToday(dateStr, set){
-  localStorage.setItem('lastQuizDate', dateStr);
-  localStorage.setItem('lastQuizSet', JSON.stringify(set));
-}
-
-function loadToday(){
-  const dateStr = localStorage.getItem('lastQuizDate');
-  const set = JSON.parse(localStorage.getItem('lastQuizSet') || 'null');
-  return {dateStr, set};
-}
-
-function startQuiz(){
-  const today = formatDate(new Date());
-  const saved = loadToday();
-  if(saved.dateStr === today && Array.isArray(saved.set) && saved.set.length===TOTAL_PER_DAY){
-    todaysSet = saved.set;
+  if (savedDate === today && savedSet) {
+    todayQuestions = JSON.parse(savedSet);
   } else {
-    todaysSet = pickTodaysQuestions(QUESTIONS);
-    saveToday(today, todaysSet);
+    todayQuestions = pickQuestions();
+    localStorage.setItem("quizDate", today);
+    localStorage.setItem("quizSet", JSON.stringify(todayQuestions));
   }
 
-  startScreen.classList.add('hidden');
-  quizEl.classList.remove('hidden');
-  currentIndex = 0; score = 0;
-  renderQuestion();
+  currentIndex = 0;
+  score = 0;
+  showQuestion();
 }
 
-function renderQuestion(){
-  const q = todaysSet[currentIndex];
-  progressEl.textContent = currentIndex+1;
-  questionEl.textContent = q.question;
-  choicesEl.innerHTML = '';
-  explanationEl.classList.add('hidden');
-  explanationEl.innerHTML = '';
-  nextBtn.classList.add('hidden');
+function pickQuestions() {
+  const easy = allQuestions.filter(q => q.level === "easy").sort(() => 0.5 - Math.random()).slice(0, 4);
+  const medium = allQuestions.filter(q => q.level === "medium").sort(() => 0.5 - Math.random()).slice(0, 3);
+  const hard = allQuestions.filter(q => q.level === "hard").sort(() => 0.5 - Math.random()).slice(0, 3);
+  return [...easy, ...medium, ...hard];
+}
+
+function showQuestion() {
+  if (currentIndex >= todayQuestions.length) {
+    showScore();
+    return;
+  }
+
+  const q = todayQuestions[currentIndex];
+  questionEl.textContent = `ข้อที่ ${currentIndex + 1}: ${q.question}`;
+  choicesEl.innerHTML = "";
+  explanationEl.classList.add("hidden");
+  explanationEl.innerHTML = "";
+  nextBtn.style.display = "none";
 
   q.choices.forEach(choice => {
-    const btn = document.createElement('button');
-    btn.className = 'choice-btn';
+    const btn = document.createElement("button");
     btn.textContent = choice;
-    btn.onclick = () => handleAnswer(btn, q);
+    btn.classList.add("choice");
+    btn.onclick = () => selectAnswer(btn, q);
     choicesEl.appendChild(btn);
   });
 }
 
-function handleAnswer(btn, q){
-  const all = choicesEl.querySelectorAll('.choice-btn');
-  all.forEach(b=>{b.classList.add('disabled'); b.disabled = true});
+function selectAnswer(selectedBtn, q) {
+  const buttons = document.querySelectorAll(".choice");
+  buttons.forEach(b => (b.disabled = true));
 
-  if(btn.textContent === q.answer){
-    btn.classList.add('correct');
+  if (selectedBtn.textContent === q.answer) {
+    selectedBtn.classList.add("correct");
     score++;
   } else {
-    btn.classList.add('wrong');
-    all.forEach(b=>{ if(b.textContent===q.answer) b.classList.add('correct') });
+    selectedBtn.classList.add("wrong");
+    buttons.forEach(b => {
+      if (b.textContent === q.answer) b.classList.add("correct");
+    });
   }
 
-  explanationEl.innerHTML = `<strong>เฉลย:</strong> ${q.answer}<br>
-<strong>คำอธิบาย:</strong> ${q.explanation}<br>
-<strong>คำแปล:</strong> ${q.translation}`;
-  explanationEl.classList.remove('hidden');
-  nextBtn.classList.remove('hidden');
+  explanationEl.innerHTML = `
+    <strong>เฉลย:</strong> ${q.answer}<br>
+    <strong>คำอธิบาย:</strong> ${q.explanation}<br>
+    <strong>คำแปล:</strong> ${q.translation}
+  `;
+  explanationEl.classList.remove("hidden");
+
+  nextBtn.style.display = "inline-block";
 }
 
-nextBtn.addEventListener('click', ()=>{
+nextBtn.addEventListener("click", () => {
   currentIndex++;
-  if(currentIndex < TOTAL_PER_DAY){
-    renderQuestion();
-  } else {
-    finishQuiz();
-  }
+  showQuestion();
 });
 
-function finishQuiz(){
-  quizEl.classList.add('hidden');
-  resultEl.classList.remove('hidden');
-  scoreText.textContent = `คุณได้ ${score} / ${TOTAL_PER_DAY} คะแนน`;
-  let html = '<ol>';
-  todaysSet.forEach((q,i)=>{
-    html += `<li><strong>${q.question}</strong><br>เฉลย: ${q.answer} — ${q.translation}</li>`;
-  });
-  html += '</ol>';
-  resultDetail.innerHTML = html;
+function showScore() {
+  quizContainer.classList.add("hidden");
+  scoreContainer.classList.remove("hidden");
+  scoreText.textContent = `คุณได้ ${score} คะแนน จาก ${todayQuestions.length} ข้อ`;
 }
 
-restartBtn.addEventListener('click', ()=>{
-  localStorage.removeItem('lastQuizDate');
-  localStorage.removeItem('lastQuizSet');
-  location.reload();
-});
-
-startBtn.addEventListener('click', startQuiz);
-
-if(!QUESTIONS.length){
-  console.error('No questions loaded. Make sure questions.json defines window.ALL_QUESTIONS.');
+function restartQuiz() {
+  quizContainer.classList.remove("hidden");
+  scoreContainer.classList.add("hidden");
+  startQuiz();
 }
 
+loadQuestions();
