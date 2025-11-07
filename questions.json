@@ -1,4 +1,4 @@
-window.ALL_QUESTIONS = [
+QUESTIONS = [
   {
     "level": "easy",
     "question": "She _____ to school every day.",
