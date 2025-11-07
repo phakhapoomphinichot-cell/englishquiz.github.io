@@ -1,7 +1,7 @@
-window.ALLQUESTIONS = [
-{
+[
+  {
     "level": "easy",
-    "question": "She _____ to school every day.",
+    "question": "Easy Question 1: She _____ to school every day.",
     "choices": [
       "go",
       "goes",
@@ -9,506 +9,12 @@ window.ALLQUESTIONS = [
       "gone"
     ],
     "answer": "goes",
-    "explanation": "She = บุคคลที่สาม เอกพจน์ จึงเติม -s",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
     "translation": "เธอไปโรงเรียนทุกวัน"
   },
   {
     "level": "easy",
-    "question": "I _____ coffee every morning.",
-    "choices": [
-      "drink",
-      "drinks",
-      "drinking",
-      "drank"
-    ],
-    "answer": "drink",
-    "explanation": "I ใช้ base verb ไม่เติม -s",
-    "translation": "ฉันดื่มกาแฟทุกเช้า"
-  },
-  {
-    "level": "easy",
-    "question": "Choose the synonym of 'big'.",
-    "choices": [
-      "large",
-      "small",
-      "tiny",
-      "short"
-    ],
-    "answer": "large",
-    "explanation": "'large' ใกล้เคียงกับ 'big'",
-    "translation": "large = ใหญ่"
-  },
-  {
-    "level": "easy",
-    "question": "What is the opposite of 'hot'?",
-    "choices": [
-      "cold",
-      "warm",
-      "cool",
-      "mild"
-    ],
-    "answer": "cold",
-    "explanation": "'cold' ตรงข้ามกับ 'hot'",
-    "translation": "cold = เย็น"
-  },
-  {
-    "level": "easy",
-    "question": "Pick the correct article: I saw _____ elephant.",
-    "choices": [
-      "a",
-      "an",
-      "the",
-      "-"
-    ],
-    "answer": "an",
-    "explanation": "elephant ขึ้นต้นด้วยเสียงสระ จึงใช้ 'an'",
-    "translation": "ฉันเห็นช้างตัวหนึ่ง"
-  },
-  {
-    "level": "easy",
-    "question": "He _____ football every weekend.",
-    "choices": [
-      "play",
-      "plays",
-      "playing",
-      "played"
-    ],
-    "answer": "plays",
-    "explanation": "He = บุคคลที่สาม เอกพจน์ เติม -s",
-    "translation": "เขาเล่นฟุตบอลทุกสุดสัปดาห์"
-  },
-  {
-    "level": "easy",
-    "question": "Which is a color?",
-    "choices": [
-      "apple",
-      "blue",
-      "run",
-      "quick"
-    ],
-    "answer": "blue",
-    "explanation": "blue เป็นคำสี",
-    "translation": "blue = สีน้ำเงิน"
-  },
-  {
-    "level": "easy",
-    "question": "I _____ a book right now.",
-    "choices": [
-      "read",
-      "reads",
-      "am reading",
-      "is reading"
-    ],
-    "answer": "am reading",
-    "explanation": "ขณะนี้ใช้ present continuous",
-    "translation": "ฉันกำลังอ่านหนังสืออยู่ตอนนี้"
-  },
-  {
-    "level": "easy",
-    "question": "Choose the correct plural: 'city' → ____.",
-    "choices": [
-      "citys",
-      "cities",
-      "cityes",
-      "cites"
-    ],
-    "answer": "cities",
-    "explanation": "-y ก่อนพยัญชนะ เปลี่ยน y เป็น ies",
-    "translation": "cities = เมือง (พหูพจน์)"
-  },
-  {
-    "level": "easy",
-    "question": "Which word is a verb?",
-    "choices": [
-      "happy",
-      "eat",
-      "fast",
-      "blue"
-    ],
-    "answer": "eat",
-    "explanation": "eat เป็นคำกริยา",
-    "translation": "eat = กิน"
-  },
-  {
-    "level": "easy",
-    "question": "Fill in: They ____ at the park yesterday.",
-    "choices": [
-      "is",
-      "are",
-      "were",
-      "be"
-    ],
-    "answer": "were",
-    "explanation": "yesterday -> past tense 'were' for they",
-    "translation": "พวกเขาอยู่ที่สวนเมื่อวานนี้"
-  },
-  {
-    "level": "easy",
-    "question": "Pick the correct word: 'I ____ TV last night.'",
-    "choices": [
-      "watch",
-      "watched",
-      "watching",
-      "watches"
-    ],
-    "answer": "watched",
-    "explanation": "past tense สำหรับสิ่งที่เกิดแล้วในอดีต",
-    "translation": "ฉันดูทีวีเมื่อคืน"
-  },
-  {
-    "level": "easy",
-    "question": "Which is a pronoun?",
-    "choices": [
-      "apple",
-      "they",
-      "walk",
-      "quickly"
-    ],
-    "answer": "they",
-    "explanation": "they คือคำสรรพนาม",
-    "translation": "they = พวกเขา/พวกมัน"
-  },
-  {
-    "level": "easy",
-    "question": "Complete: 'This is my ____.'",
-    "choices": [
-      "hers",
-      "her",
-      "she",
-      "him"
-    ],
-    "answer": "hers",
-    "explanation": "hers = ของเธอ (แสดงความเป็นเจ้าของ)",
-    "translation": "นี่คือของเธอ"
-  },
-  {
-    "level": "easy",
-    "question": "What time is it? — It's ____ o'clock.",
-    "choices": [
-      "seven",
-      "fast",
-      "run",
-      "green"
-    ],
-    "answer": "seven",
-    "explanation": "คำตอบ 'seven' เป็นชั่วโมง",
-    "translation": "ตอนนี้เจ็ดโมง"
-  },
-  {
-    "level": "easy",
-    "question": "Choose correct: 'Can you ____ me?'",
-    "choices": [
-      "help",
-      "helps",
-      "helping",
-      "helped"
-    ],
-    "answer": "help",
-    "explanation": "หลัง can ตามด้วย base verb",
-    "translation": "คุณช่วยฉันได้ไหม"
-  },
-  {
-    "level": "easy",
-    "question": "Which word is an adjective?",
-    "choices": [
-      "carefully",
-      "beautiful",
-      "run",
-      "they"
-    ],
-    "answer": "beautiful",
-    "explanation": "beautiful = adjective",
-    "translation": "beautiful = สวยงาม"
-  },
-  {
-    "level": "easy",
-    "question": "Fill: 'He is ____ engineer.'",
-    "choices": [
-      "a",
-      "an",
-      "the",
-      "-"
-    ],
-    "answer": "an",
-    "explanation": "engineer เริ่มด้วยเสียงสระ -> an",
-    "translation": "เขาเป็นวิศวกร"
-  },
-  {
-    "level": "easy",
-    "question": "Opposite of 'young' is?",
-    "choices": [
-      "old",
-      "short",
-      "tall",
-      "fast"
-    ],
-    "answer": "old",
-    "explanation": "old ตรงข้าม young",
-    "translation": "old = แก่"
-  },
-  {
-    "level": "easy",
-    "question": "I ____ to the store every morning.",
-    "choices": [
-      "goes",
-      "go",
-      "going",
-      "gone"
-    ],
-    "answer": "go",
-    "explanation": "I -> base verb",
-    "translation": "ฉันไปที่ร้านทุกเช้า"
-  },
-  {
-    "level": "easy",
-    "question": "She can ____ very well.",
-    "choices": [
-      "sing",
-      "sings",
-      "singing",
-      "sang"
-    ],
-    "answer": "sing",
-    "explanation": "after can use base verb",
-    "translation": "เธอร้องเพลงได้ดีมาก"
-  },
-  {
-    "level": "easy",
-    "question": "Pick the correct preposition: He is good ___ math.",
-    "choices": [
-      "in",
-      "at",
-      "on",
-      "with"
-    ],
-    "answer": "at",
-    "explanation": "good at = เก่งในเรื่อง",
-    "translation": "เขาเก่งคณิตศาสตร์"
-  },
-  {
-    "level": "easy",
-    "question": "Which word is an adverb?",
-    "choices": [
-      "quick",
-      "quickly",
-      "quiet",
-      "quietly"
-    ],
-    "answer": "quickly",
-    "explanation": "quickly = adverb",
-    "translation": "quickly = อย่างรวดเร็ว"
-  },
-  {
-    "level": "easy",
-    "question": "Choose correct: 'They ____ finished their homework.'",
-    "choices": [
-      "has",
-      "have",
-      "had",
-      "having"
-    ],
-    "answer": "have",
-    "explanation": "They -> have",
-    "translation": "พวกเขาได้ทำการบ้านเสร็จแล้ว"
-  },
-  {
-    "level": "easy",
-    "question": "Which sentence is polite?",
-    "choices": [
-      "Shut up!",
-      "Please sit down.",
-      "Give me that!",
-      "Do it now!"
-    ],
-    "answer": "Please sit down.",
-    "explanation": "มีคำว่า 'Please' ทำให้สุภาพ",
-    "translation": "กรุณานั่งลง"
-  },
-  {
-    "level": "easy",
-    "question": "Fill: '____ you like coffee?'",
-    "choices": [
-      "Do",
-      "Does",
-      "Did",
-      "Are"
-    ],
-    "answer": "Do",
-    "explanation": "you -> Do in present simple questions",
-    "translation": "คุณชอบกาแฟไหม"
-  },
-  {
-    "level": "easy",
-    "question": "Choose the correct tense: 'She ____ to Paris last year.'",
-    "choices": [
-      "go",
-      "went",
-      "goes",
-      "going"
-    ],
-    "answer": "went",
-    "explanation": "last year -> past tense",
-    "translation": "เธอไปปารีสเมื่อปีที่แล้ว"
-  },
-  {
-    "level": "easy",
-    "question": "Which is a fruit?",
-    "choices": [
-      "carrot",
-      "apple",
-      "bread",
-      "rice"
-    ],
-    "answer": "apple",
-    "explanation": "apple = ผลไม้",
-    "translation": "apple = แอปเปิล"
-  },
-  {
-    "level": "easy",
-    "question": "Pick the correct plural: 'child' → ____.",
-    "choices": [
-      "childs",
-      "children",
-      "childes",
-      "child"
-    ],
-    "answer": "children",
-    "explanation": "irregular plural = children",
-    "translation": "children = เด็กๆ"
-  },
-  {
-    "level": "easy",
-    "question": "Which completes: 'I ___ tired.'",
-    "choices": [
-      "am",
-      "is",
-      "are",
-      "be"
-    ],
-    "answer": "am",
-    "explanation": "I คู่กับ am",
-    "translation": "ฉันเหนื่อย"
-  },
-  {
-    "level": "easy",
-    "question": "Choose correct: 'We ____ to the cinema tomorrow.'",
-    "choices": [
-      "go",
-      "went",
-      "will go",
-      "goes"
-    ],
-    "answer": "will go",
-    "explanation": "tomorrow -> future will",
-    "translation": "พวกเราจะไปโรงหนังวันพรุ่งนี้"
-  },
-  {
-    "level": "easy",
-    "question": "Pick the correct: 'Where ____ you live?'",
-    "choices": [
-      "do",
-      "does",
-      "did",
-      "are"
-    ],
-    "answer": "do",
-    "explanation": "Where + do for you",
-    "translation": "คุณอาศัยอยู่ที่ไหน"
-  },
-  {
-    "level": "easy",
-    "question": "Which is a place?",
-    "choices": [
-      "happy",
-      "city",
-      "run",
-      "blue"
-    ],
-    "answer": "city",
-    "explanation": "city = สถานที่",
-    "translation": "city = เมือง"
-  },
-  {
-    "level": "easy",
-    "question": "Fill: 'My mother is a ____.'",
-    "choices": [
-      "teacher",
-      "teach",
-      "teaches",
-      "teaching"
-    ],
-    "answer": "teacher",
-    "explanation": "profession -> teacher",
-    "translation": "แม่ของฉันเป็นครู"
-  },
-  {
-    "level": "easy",
-    "question": "Which pronoun is correct: 'Give it to ___.'",
-    "choices": [
-      "me",
-      "I",
-      "mine",
-      "my"
-    ],
-    "answer": "me",
-    "explanation": "object pronoun = me",
-    "translation": "ให้มันกับฉัน"
-  },
-  {
-    "level": "easy",
-    "question": "Choose opposite: 'full' -> ?",
-    "choices": [
-      "empty",
-      "big",
-      "heavy",
-      "open"
-    ],
-    "answer": "empty",
-    "explanation": "empty ตรงข้าม full",
-    "translation": "empty = ว่าง"
-  },
-  {
-    "level": "easy",
-    "question": "Which word is a number?",
-    "choices": [
-      "green",
-      "seven",
-      "apple",
-      "hello"
-    ],
-    "answer": "seven",
-    "explanation": "seven = ตัวเลข",
-    "translation": "seven = เจ็ด"
-  },
-  {
-    "level": "easy",
-    "question": "Pick the best: 'I like ___ music.'",
-    "choices": [
-      "listen",
-      "listening",
-      "listened",
-      "to listen"
-    ],
-    "answer": "listening",
-    "explanation": "like + V-ing",
-    "translation": "ฉันชอบฟังเพลง"
-  },
-  {
-    "level": "easy",
-    "question": "Fill: 'He has a ____ car.'",
-    "choices": [
-      "red",
-      "quickly",
-      "easy",
-      "run"
-    ],
-    "answer": "red",
-    "explanation": "red = adjective",
-    "translation": "เขามีรถสีแดง"
-  },
-  {
-    "level": "easy",
-    "question": "She _____ to school every day.",
+    "question": "Easy Question 2: She _____ to school every day.",
     "choices": [
       "go",
       "goes",
@@ -516,12 +22,506 @@ window.ALLQUESTIONS = [
       "gone"
     ],
     "answer": "goes",
-    "explanation": "She = บุคคลที่สาม เอกพจน์ จึงเติม -s",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 3: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 4: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 5: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 6: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 7: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 8: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 9: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 10: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 11: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 12: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 13: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 14: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 15: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 16: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 17: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 18: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 19: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 20: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 21: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 22: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 23: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 24: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 25: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 26: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 27: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 28: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 29: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 30: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 31: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 32: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 33: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 34: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 35: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 36: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 37: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 38: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 39: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
+    "translation": "เธอไปโรงเรียนทุกวัน"
+  },
+  {
+    "level": "easy",
+    "question": "Easy Question 40: She _____ to school every day.",
+    "choices": [
+      "go",
+      "goes",
+      "going",
+      "gone"
+    ],
+    "answer": "goes",
+    "explanation": "She เป็นเอกพจน์ ต้องใช้กริยาเติม s → goes",
     "translation": "เธอไปโรงเรียนทุกวัน"
   },
   {
     "level": "medium",
-    "question": "If I _____ you, I would apologize.",
+    "question": "Medium Question 1: If I _____ you, I would study harder.",
     "choices": [
       "am",
       "were",
@@ -529,415 +529,12 @@ window.ALLQUESTIONS = [
       "be"
     ],
     "answer": "were",
-    "explanation": "Second conditional -> were for hypothetical",
-    "translation": "ถ้าฉันเป็นคุณ ฉันจะขอโทษ"
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
   },
   {
     "level": "medium",
-    "question": "He _____ to finish the work by 5 pm tomorrow.",
-    "choices": [
-      "must",
-      "must to",
-      "has to",
-      "have to"
-    ],
-    "answer": "has to",
-    "explanation": "He uses has to for obligation",
-    "translation": "เขาต้องทำงานให้เสร็จภายใน 5 โมง"
-  },
-  {
-    "level": "medium",
-    "question": "The girl ____ won the prize is my friend.",
-    "choices": [
-      "which",
-      "who",
-      "whom",
-      "whose"
-    ],
-    "answer": "who",
-    "explanation": "who ใช้กับคน",
-    "translation": "เด็กผู้หญิงที่ได้รับรางวัลเป็นเพื่อนของฉัน"
-  },
-  {
-    "level": "medium",
-    "question": "She has been studying English ____ five years.",
-    "choices": [
-      "since",
-      "for",
-      "from",
-      "during"
-    ],
-    "answer": "for",
-    "explanation": "for ใช้กับช่วงเวลา",
-    "translation": "เธอเรียนภาษาอังกฤษมาเป็นเวลา 5 ปี"
-  },
-  {
-    "level": "medium",
-    "question": "He prefers coffee ____ tea.",
-    "choices": [
-      "than",
-      "to",
-      "over",
-      "rather"
-    ],
-    "answer": "to",
-    "explanation": "prefer A to B",
-    "translation": "เขาชอบกาแฟมากกว่าชา"
-  },
-  {
-    "level": "medium",
-    "question": "Please ____ the light when you leave.",
-    "choices": [
-      "turn off",
-      "turn on",
-      "put off",
-      "give up"
-    ],
-    "answer": "turn off",
-    "explanation": "turn off = ปิดไฟ",
-    "translation": "กรุณาปิดไฟเมื่อคุณออกไป"
-  },
-  {
-    "level": "medium",
-    "question": "The book ____ I borrowed was interesting.",
-    "choices": [
-      "which",
-      "that",
-      "who",
-      "-"
-    ],
-    "answer": "that",
-    "explanation": "that ใช้กับสิ่งของ",
-    "translation": "หนังสือที่ฉันยืมมาน่าสนใจ"
-  },
-  {
-    "level": "medium",
-    "question": "He insisted ____ paying for dinner.",
-    "choices": [
-      "on",
-      "in",
-      "at",
-      "for"
-    ],
-    "answer": "on",
-    "explanation": "insist on + -ing",
-    "translation": "เขายืนกรานที่จะจ่ายค่าดินเนอร์"
-  },
-  {
-    "level": "medium",
-    "question": "If only I _____ more careful!",
-    "choices": [
-      "am",
-      "were",
-      "had been",
-      "have been"
-    ],
-    "answer": "had been",
-    "explanation": "If only + past perfect for regret",
-    "translation": "ขอให้ฉันระมัดระวังมากกว่านี้"
-  },
-  {
-    "level": "medium",
-    "question": "Which sentence uses passive voice?",
-    "choices": [
-      "The chef cooks the meal.",
-      "The meal was cooked by the chef.",
-      "The chef is cooking.",
-      "The chef will cook"
-    ],
-    "answer": "The meal was cooked by the chef.",
-    "explanation": "Passive: be + past participle",
-    "translation": "มื้ออาหารถูกปรุงโดยเชฟ"
-  },
-  {
-    "level": "medium",
-    "question": "He said he _____ already.",
-    "choices": [
-      "left",
-      "had left",
-      "has left",
-      "will leave"
-    ],
-    "answer": "had left",
-    "explanation": "Reported speech uses past perfect for earlier past",
-    "translation": "เขาพูดว่าเขาได้จากไปแล้ว"
-  },
-  {
-    "level": "medium",
-    "question": "By the time we arrived, the film ____.",
-    "choices": [
-      "had started",
-      "has started",
-      "started",
-      "is starting"
-    ],
-    "answer": "had started",
-    "explanation": "By the time -> past perfect",
-    "translation": "ตอนที่พวกเรามาถึง ภาพยนตร์ได้เริ่มแล้ว"
-  },
-  {
-    "level": "medium",
-    "question": "What's the meaning of 'economical'?",
-    "choices": [
-      "cheap",
-      "careful with money",
-      "expensive",
-      "beautiful"
-    ],
-    "answer": "careful with money",
-    "explanation": "economical = ประหยัด",
-    "translation": "economical = ประหยัด"
-  },
-  {
-    "level": "medium",
-    "question": "make ___ decision",
-    "choices": [
-      "a",
-      "the",
-      "an",
-      "--"
-    ],
-    "answer": "a",
-    "explanation": "make a decision เป็นสำนวน",
-    "translation": "ตัดสินใจ"
-  },
-  {
-    "level": "medium",
-    "question": "He would have come if he ____ the invitation.",
-    "choices": [
-      "had received",
-      "received",
-      "has received",
-      "was receiving"
-    ],
-    "answer": "had received",
-    "explanation": "third conditional requires had + V3",
-    "translation": "เขาคงจะมาถ้าเขาได้รับคำเชิญ"
-  },
-  {
-    "level": "medium",
-    "question": "She's good ____ solving problems.",
-    "choices": [
-      "at",
-      "in",
-      "with",
-      "on"
-    ],
-    "answer": "at",
-    "explanation": "good at = เก่งในเรื่อง",
-    "translation": "เธอเก่งในการแก้ปัญหา"
-  },
-  {
-    "level": "medium",
-    "question": "Which word is a synonym of 'difficult'?",
-    "choices": [
-      "easy",
-      "hard",
-      "simple",
-      "light"
-    ],
-    "answer": "hard",
-    "explanation": "hard ~ difficult",
-    "translation": "hard = ยาก"
-  },
-  {
-    "level": "medium",
-    "question": "He apologized ____ being late.",
-    "choices": [
-      "for",
-      "to",
-      "about",
-      "with"
-    ],
-    "answer": "for",
-    "explanation": "apologize for + -ing",
-    "translation": "เขาขอโทษที่มาสาย"
-  },
-  {
-    "level": "medium",
-    "question": "I would rather you ____ now.",
-    "choices": [
-      "left",
-      "leave",
-      "lefted",
-      "had left"
-    ],
-    "answer": "left",
-    "explanation": "would rather + past for preferences",
-    "translation": "ฉันอยากให้คุณออกไปตอนนี้"
-  },
-  {
-    "level": "medium",
-    "question": "She is used to ____ up early.",
-    "choices": [
-      "get",
-      "getting",
-      "to get",
-      "got"
-    ],
-    "answer": "getting",
-    "explanation": "used to + V-ing",
-    "translation": "เธอชินกับการตื่นเช้า"
-  },
-  {
-    "level": "medium",
-    "question": "There is ____ milk left.",
-    "choices": [
-      "much",
-      "many",
-      "a few",
-      "few"
-    ],
-    "answer": "much",
-    "explanation": "milk = uncountable",
-    "translation": "มีนมเหลืออยู่"
-  },
-  {
-    "level": "medium",
-    "question": "He hardly ____ any sleep last night.",
-    "choices": [
-      "had",
-      "has",
-      "did",
-      "got"
-    ],
-    "answer": "had",
-    "explanation": "hardly + past -> had any sleep",
-    "translation": "เขาแทบจะไม่ได้หลับเลยเมื่อคืน"
-  },
-  {
-    "level": "medium",
-    "question": "What does 'annual' mean?",
-    "choices": [
-      "every year",
-      "every month",
-      "daily",
-      "rare"
-    ],
-    "answer": "every year",
-    "explanation": "annual = รายปี",
-    "translation": "annual = รายปี"
-  },
-  {
-    "level": "medium",
-    "question": "She made him ____ his homework.",
-    "choices": [
-      "do",
-      "to do",
-      "doing",
-      "did"
-    ],
-    "answer": "do",
-    "explanation": "make + object + bare infinitive",
-    "translation": "เธอทำให้เขาทำการบ้าน"
-  },
-  {
-    "level": "medium",
-    "question": "Choose correct: 'She suggested ___ earlier.'",
-    "choices": [
-      "to leave",
-      "leaving",
-      "leave",
-      "left"
-    ],
-    "answer": "leaving",
-    "explanation": "suggest + -ing",
-    "translation": "เธอแนะนำให้ออกไปก่อนหน้านี้"
-  },
-  {
-    "level": "medium",
-    "question": "What does 'reliable' mean?",
-    "choices": [
-      "trustworthy",
-      "quick",
-      "funny",
-      "cheap"
-    ],
-    "answer": "trustworthy",
-    "explanation": "reliable = น่าเชื่อถือ",
-    "translation": "reliable = น่าเชื่อถือ"
-  },
-  {
-    "level": "medium",
-    "question": "I am looking forward ____ you.",
-    "choices": [
-      "seeing",
-      "to see",
-      "see",
-      "to seeing"
-    ],
-    "answer": "to seeing",
-    "explanation": "look forward to + V-ing",
-    "translation": "ฉันตั้งตารอที่จะพบคุณ"
-  },
-  {
-    "level": "medium",
-    "question": "They will finish the work.",
-    "choices": [
-      "The work will be finished by them.",
-      "The work will finish.",
-      "The work will be finishing.",
-      "The work is finished by them."
-    ],
-    "answer": "The work will be finished by them.",
-    "explanation": "Future passive = will be + past participle",
-    "translation": "งานจะถูกทำเสร็จโดยพวกเขา"
-  },
-  {
-    "level": "medium",
-    "question": "She has ____ been to Japan twice.",
-    "choices": [
-      "has",
-      "have",
-      "had",
-      "is"
-    ],
-    "answer": "has",
-    "explanation": "She -> has for present perfect",
-    "translation": "เธอไปญี่ปุ่นมาแล้วสองครั้ง"
-  },
-  {
-    "level": "medium",
-    "question": "I can't stand _____ in noise.",
-    "choices": [
-      "to live",
-      "living",
-      "live",
-      "lived"
-    ],
-    "answer": "living",
-    "explanation": "can't stand + V-ing",
-    "translation": "ฉันทนอยู่กับเสียงดังไม่ได้"
-  },
-  {
-    "level": "medium",
-    "question": "Which is synonym of 'rapid'?",
-    "choices": [
-      "slow",
-      "quick",
-      "late",
-      "weak"
-    ],
-    "answer": "quick",
-    "explanation": "rapid = quick",
-    "translation": "rapid = รวดเร็ว"
-  },
-  {
-    "level": "medium",
-    "question": "There used to ____ here.",
-    "choices": [
-      "be",
-      "been",
-      "being",
-      "to be"
-    ],
-    "answer": "be",
-    "explanation": "used to + base verb",
-    "translation": "เคยมีที่นี่"
-  },
-  {
-    "level": "medium",
-    "question": "If I _____ you, I would apologize.",
+    "question": "Medium Question 2: If I _____ you, I would study harder.",
     "choices": [
       "am",
       "were",
@@ -945,12 +542,12 @@ window.ALLQUESTIONS = [
       "be"
     ],
     "answer": "were",
-    "explanation": "Second conditional -> were for hypothetical",
-    "translation": "ถ้าฉันเป็นคุณ ฉันจะขอโทษ"
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
   },
   {
     "level": "medium",
-    "question": "If I _____ you, I would apologize.",
+    "question": "Medium Question 3: If I _____ you, I would study harder.",
     "choices": [
       "am",
       "were",
@@ -958,12 +555,12 @@ window.ALLQUESTIONS = [
       "be"
     ],
     "answer": "were",
-    "explanation": "Second conditional -> were for hypothetical",
-    "translation": "ถ้าฉันเป็นคุณ ฉันจะขอโทษ"
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
   },
   {
     "level": "medium",
-    "question": "If I _____ you, I would apologize.",
+    "question": "Medium Question 4: If I _____ you, I would study harder.",
     "choices": [
       "am",
       "were",
@@ -971,332 +568,734 @@ window.ALLQUESTIONS = [
       "be"
     ],
     "answer": "were",
-    "explanation": "Second conditional -> were for hypothetical",
-    "translation": "ถ้าฉันเป็นคุณ ฉันจะขอโทษ"
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
   },
   {
-    "level": "hard",
-    "question": "He denied ____ the documents to anyone.",
+    "level": "medium",
+    "question": "Medium Question 5: If I _____ you, I would study harder.",
     "choices": [
-      "to give",
-      "having given",
-      "give",
-      "giving"
-    ],
-    "answer": "having given",
-    "explanation": "deny + having + V3 เมื่อปฏิเสธการกระทำในอดีต",
-    "translation": "เขาปฏิเสธว่าได้ให้เอกสารกับใคร"
-  },
-  {
-    "level": "hard",
-    "question": "No sooner had he left ____ it started to rain.",
-    "choices": [
-      "when",
-      "than",
-      "that",
-      "then"
-    ],
-    "answer": "than",
-    "explanation": "No sooner ... than structure",
-    "translation": "ทันทีที่เขาออกไป ฝนก็เริ่มตก"
-  },
-  {
-    "level": "hard",
-    "question": "Had I known about the traffic, I ____ earlier.",
-    "choices": [
-      "would leave",
-      "would have left",
-      "will have left",
-      "would be leaving"
-    ],
-    "answer": "would have left",
-    "explanation": "third conditional",
-    "translation": "ถ้าฉันรู้เรื่องการจราจร ฉันคงออกไปก่อนหน้านี้"
-  },
-  {
-    "level": "hard",
-    "question": "She contributed ____ the success of the team.",
-    "choices": [
-      "to",
-      "for",
-      "in",
-      "with"
-    ],
-    "answer": "to",
-    "explanation": "contribute to",
-    "translation": "เธอมีส่วนร่วมต่อความสำเร็จของทีม"
-  },
-  {
-    "level": "hard",
-    "question": "They suggested that he ____ earlier.",
-    "choices": [
-      "arrives",
-      "arrive",
-      "arrived",
-      "arriving"
-    ],
-    "answer": "arrive",
-    "explanation": "subjunctive after suggest",
-    "translation": "พวกเขาแนะนำว่าเขาควรมาถึงก่อน"
-  },
-  {
-    "level": "hard",
-    "question": "The committee recommended ____ the plan immediately.",
-    "choices": [
-      "implementing",
-      "to implement",
-      "implement",
-      "implemented"
-    ],
-    "answer": "implementing",
-    "explanation": "recommend + V-ing",
-    "translation": "คณะกรรมการแนะนำให้ดำเนินการแผนทันที"
-  },
-  {
-    "level": "hard",
-    "question": "Seldom ____ such a problem in this region.",
-    "choices": [
-      "we see",
-      "do we see",
-      "we seen",
-      "did we see"
-    ],
-    "answer": "do we see",
-    "explanation": "inversion after seldom",
-    "translation": "ไม่ค่อยมีปัญหาเช่นนี้ในภูมิภาคนี้"
-  },
-  {
-    "level": "hard",
-    "question": "Little did he know ____ would happen next.",
-    "choices": [
-      "what",
-      "that",
-      "which",
-      "how"
-    ],
-    "answer": "what",
-    "explanation": "little -> inversion",
-    "translation": "เขาไม่รู้เลยว่าจะเกิดอะไรขึ้นต่อไป"
-  },
-  {
-    "level": "hard",
-    "question": "Hardly had she entered the room ____ the phone rang.",
-    "choices": [
-      "than",
-      "when",
-      "that",
-      "and"
-    ],
-    "answer": "when",
-    "explanation": "Hardly had ... when",
-    "translation": "ทันทีที่เธอเข้าห้อง โทรศัพท์ก็ดัง"
-  },
-  {
-    "level": "hard",
-    "question": "No matter how ____ you are, mistakes still happen.",
-    "choices": [
-      "careful",
-      "carefully",
-      "carefulness",
-      "care"
-    ],
-    "answer": "careful",
-    "explanation": "how + adjective",
-    "translation": "ไม่ว่าสิ่งที่คุณระมัดระวังเพียงใด ความผิดพลาดก็ยังเกิดขึ้นได้"
-  },
-  {
-    "level": "hard",
-    "question": "He would rather you ____ him the truth.",
-    "choices": [
-      "tell",
-      "told",
-      "have told",
-      "telling"
-    ],
-    "answer": "told",
-    "explanation": "would rather + past",
-    "translation": "เขาอยากให้คุณบอกความจริงกับเขา"
-  },
-  {
-    "level": "hard",
-    "question": "The suspect was convicted ____ fraud.",
-    "choices": [
-      "of",
-      "for",
-      "about",
-      "with"
-    ],
-    "answer": "of",
-    "explanation": "convict of",
-    "translation": "ผู้ต้องสงสัยถูกตัดสินว่ามีความผิดฐานฉ้อโกง"
-  },
-  {
-    "level": "hard",
-    "question": "She made a point of ____ early every day.",
-    "choices": [
-      "getting up",
-      "to get up",
-      "get up",
-      "got up"
-    ],
-    "answer": "getting up",
-    "explanation": "make a point of + V-ing",
-    "translation": "เธอให้ความสำคัญกับการตื่นเช้าทุกวัน"
-  },
-  {
-    "level": "hard",
-    "question": "Scarcely had the show begun ____ the lights went out.",
-    "choices": [
-      "than",
-      "when",
-      "that",
-      "and"
-    ],
-    "answer": "when",
-    "explanation": "Scarcely had ... when",
-    "translation": "แทบจะไม่ทันที่การแสดงจะเริ่ม ไฟก็ดับ"
-  },
-  {
-    "level": "hard",
-    "question": "Had it not been for his help, I ____ succeed.",
-    "choices": [
-      "wouldn't have",
-      "wouldn't",
-      "would have",
-      "couldn't have"
-    ],
-    "answer": "couldn't have",
-    "explanation": "Had it not been for -> couldn't have",
-    "translation": "ถ้าไม่ใช่เพราะความช่วยเหลือของเขา ฉันคงไม่สามารถสำเร็จได้"
-  },
-  {
-    "level": "hard",
-    "question": "They would rather that he ____ here now.",
-    "choices": [
-      "is",
+      "am",
       "were",
       "was",
       "be"
     ],
     "answer": "were",
-    "explanation": "would rather that + past subjunctive",
-    "translation": "พวกเขาต้องการให้เขาอยู่ที่นี่ตอนนี้"
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 6: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 7: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 8: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 9: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 10: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 11: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 12: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 13: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 14: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 15: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 16: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 17: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 18: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 19: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 20: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 21: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 22: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 23: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 24: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 25: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 26: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 27: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 28: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 29: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 30: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 31: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 32: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 33: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 34: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
+  },
+  {
+    "level": "medium",
+    "question": "Medium Question 35: If I _____ you, I would study harder.",
+    "choices": [
+      "am",
+      "were",
+      "was",
+      "be"
+    ],
+    "answer": "were",
+    "explanation": "ใน If Clause ประเภท 2 ใช้ were สำหรับทุกประธาน",
+    "translation": "ถ้าฉันเป็นคุณ ฉันจะตั้งใจเรียนมากกว่านี้"
   },
   {
     "level": "hard",
-    "question": "He is one of those people ____ cannot be easily persuaded.",
+    "question": "Hard Question 1: The report _____ by the manager yesterday.",
     "choices": [
-      "who",
-      "whom",
-      "which",
-      "that"
+      "was written",
+      "is written",
+      "writes",
+      "writing"
     ],
-    "answer": "who",
-    "explanation": "who ใช้กับคน",
-    "translation": "เขาเป็นหนึ่งในคนที่ไม่สามารถโน้มน้าวได้ง่ายๆ"
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
   },
   {
     "level": "hard",
-    "question": "We had hardly any money left, ____ we?",
+    "question": "Hard Question 2: The report _____ by the manager yesterday.",
     "choices": [
-      "had",
-      "didn't",
-      "did we",
-      "hadn't"
+      "was written",
+      "is written",
+      "writes",
+      "writing"
     ],
-    "answer": "did we",
-    "explanation": "negative adverbials -> inversion in question tag",
-    "translation": "เราแทบไม่มีเงินเหลือเลยใช่ไหม?"
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
   },
   {
     "level": "hard",
-    "question": "He demanded that the documents ____ immediately.",
+    "question": "Hard Question 3: The report _____ by the manager yesterday.",
     "choices": [
-      "be released",
-      "were released",
-      "are released",
-      "have been released"
+      "was written",
+      "is written",
+      "writes",
+      "writing"
     ],
-    "answer": "be released",
-    "explanation": "demand that + subjunctive",
-    "translation": "เขาเรียกร้องให้เอกสารถูกปล่อยทันที"
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
   },
   {
     "level": "hard",
-    "question": "She scarcely spoke, ____ made it difficult to know her mind.",
+    "question": "Hard Question 4: The report _____ by the manager yesterday.",
     "choices": [
-      "which",
-      "that",
-      "what",
-      "and"
+      "was written",
+      "is written",
+      "writes",
+      "writing"
     ],
-    "answer": "which",
-    "explanation": "which เชื่อมผลของประโยคก่อนหน้า",
-    "translation": "เธอแทบจะไม่พูดเลย ซึ่งทำให้ยากที่จะรู้ใจเธอ"
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
   },
   {
     "level": "hard",
-    "question": "No one ____ the result until the end.",
+    "question": "Hard Question 5: The report _____ by the manager yesterday.",
     "choices": [
-      "knew",
-      "had known",
-      "has known",
-      "was knowing"
+      "was written",
+      "is written",
+      "writes",
+      "writing"
     ],
-    "answer": "knew",
-    "explanation": "past simple เหมาะกับเหตุการณ์ในอดีต",
-    "translation": "ไม่มีใครรู้ผลจนกว่าจะถึงตอนจบ"
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
   },
   {
     "level": "hard",
-    "question": "He would have succeeded ____ he tried harder.",
+    "question": "Hard Question 6: The report _____ by the manager yesterday.",
     "choices": [
-      "if",
-      "unless",
-      "provided that",
-      "although"
+      "was written",
+      "is written",
+      "writes",
+      "writing"
     ],
-    "answer": "if",
-    "explanation": "third conditional implied",
-    "translation": "เขาคงประสบความสำเร็จถ้าเขาพยายามมากกว่า"
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
   },
   {
     "level": "hard",
-    "question": "It was she ____ called the meeting.",
+    "question": "Hard Question 7: The report _____ by the manager yesterday.",
     "choices": [
-      "who",
-      "whom",
-      "which",
-      "that"
+      "was written",
+      "is written",
+      "writes",
+      "writing"
     ],
-    "answer": "who",
-    "explanation": "who ใช้กับผู้กระทำ",
-    "translation": "เธอเป็นคนที่เรียกการประชุม"
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
   },
   {
     "level": "hard",
-    "question": "The manager suggested that the issue ____ by next week.",
+    "question": "Hard Question 8: The report _____ by the manager yesterday.",
     "choices": [
-      "be resolved",
-      "is resolved",
-      "was resolved",
-      "will be resolved"
+      "was written",
+      "is written",
+      "writes",
+      "writing"
     ],
-    "answer": "be resolved",
-    "explanation": "subjunctive after suggest",
-    "translation": "ผู้จัดการเสนอว่าเรื่องนี้ควรได้รับการแก้ไขภายในสัปดาห์หน้า"
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
   },
   {
     "level": "hard",
-    "question": "Rarely ____ he make such a mistake.",
+    "question": "Hard Question 9: The report _____ by the manager yesterday.",
     "choices": [
-      "does",
-      "do",
-      "did",
-      "has"
+      "was written",
+      "is written",
+      "writes",
+      "writing"
     ],
-    "answer": "does",
-    "explanation": "inversion after rarely",
-    "translation": "เขาแทบจะไม่ทำผิดพลาดเช่นนี้"
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 10: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 11: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 12: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 13: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 14: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 15: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 16: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 17: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 18: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 19: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 20: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 21: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 22: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 23: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 24: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
+  },
+  {
+    "level": "hard",
+    "question": "Hard Question 25: The report _____ by the manager yesterday.",
+    "choices": [
+      "was written",
+      "is written",
+      "writes",
+      "writing"
+    ],
+    "answer": "was written",
+    "explanation": "yesterday → ใช้ past tense และเป็น passive → was written",
+    "translation": "รายงานถูกเขียนโดยผู้จัดการเมื่อวานนี้"
   }
-];
