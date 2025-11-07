@@ -1,49 +1,378 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Daily English Quiz (ม.6) - 100 Questions</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Grammar Quiz — ม.6</title>
+  <style>
+    :root{
+      --bg: #f6f8ff;
+      --card: #ffffff;
+      --accent: #2563eb;
+      --muted: #6b7280;
+      --success: #10b981;
+      --danger: #ef4444;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      padding:24px;
+      font-family: "Noto Sans Thai", "Inter", sans-serif;
+      background: linear-gradient(180deg,var(--bg),#ffffff);
+      color:#0f172a;
+      display:flex;
+      justify-content:center;
+    }
+    .app{width:100%;max-width:820px}
+    header{text-align:center;margin-bottom:14px}
+    header h1{margin:6px 0;color:var(--accent)}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(37,99,235,0.06);margin-bottom:14px}
+    .hidden{display:none}
+    #question{font-size:18px;margin:12px 0;color:#0f172a}
+    .choices{display:flex;flex-direction:column;gap:10px}
+    .choice-btn{padding:10px 12px;border-radius:10px;border:1px solid #e6eefc;background:#f8fbff;cursor:pointer;text-align:left}
+    .choice-btn:hover{background:#eef6ff}
+    .choice-btn.disabled{opacity:.7;cursor:default}
+    .choice-btn.correct{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.25)}
+    .choice-btn.wrong{background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.25)}
+    .explanation{margin-top:12px;padding:12px;border-radius:8px;background:#f1f5f9;color:#0f172a}
+    .controls{display:flex;justify-content:flex-end;margin-top:12px}
+    .btn{padding:8px 14px;border-radius:8px;background:var(--accent);color:white;border:0;cursor:pointer}
+    .btn.secondary{background:#64748b}
+    #progress{font-size:14px;color:var(--muted)}
+    footer{text-align:center;margin-top:8px;color:var(--muted)}
+    ol.result-list{padding-left:18px;margin:8px 0}
+    @media (max-width:600px){.app{padding:12px}#question{font-size:16px}}
+  </style>
 </head>
 <body>
   <div class="app">
     <header>
-      <h1>Daily English Quiz — ม.6</h1>
-      <p class="sub">เล่น 10 ข้อทุกวัน — มีเฉลย คำอธิบาย และคำแปล</p>
+      <h1>Daily Grammar Quiz — ม.6</h1>
+      <p class="sub">เล่น 10 ข้อต่อวัน — มีเฉลย คำอธิบาย และคำแปล</p>
     </header>
 
     <main>
+      <!-- Start screen -->
       <div id="start-screen" class="card">
-        <p>ระบบจะสุ่มคำถาม 10 ข้อต่อวันจากคลังคำถาม 100 ข้อ (แบ่งระดับ: easy/medium/hard)</p>
-        <button id="start-btn">เริ่มวันนี้ (10 ข้อ)</button>
-        <p class="note">ระบบจะจดจำวันและข้อที่คุณเล่นไว้ในเครื่อง </p>
+        <p>ระบบจะสุ่มคำถาม 10 ข้อต่อวันจากคลังคำถาม (ไฟล์ <code>questions.json</code>) — มีระดับ Easy/Medium/Hard</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <button id="start-btn" class="btn">เริ่มวันนี้ (10 ข้อ)</button>
+          <button id="force-new-btn" class="btn secondary" title="ล้างชุดที่บันทึกไว้แล้วสุ่มชุดใหม่">เริ่มใหม่วันนี้ (สุ่มใหม่)</button>
+        </div>
+        <p style="margin-top:10px;color:var(--muted)">ผลการเล่นและชุดคำถามของวันที่บันทึกไว้จะเก็บในเครื่อง (localStorage)</p>
       </div>
 
+      <!-- Quiz area -->
       <div id="quiz" class="card hidden">
-        <div id="progress">ข้อ <span id="current">1</span> / 10</div>
+        <div id="progress" style="display:flex;justify-content:space-between;align-items:center">
+          <div>ข้อ <span id="current">1</span> / <span id="total">10</span></div>
+          <div id="level-badge" style="font-size:13px;color:var(--muted)"></div>
+        </div>
+
         <div id="question" class="question">คำถามจะขึ้นที่นี่</div>
         <div id="choices" class="choices"></div>
+
         <div id="explanation" class="explanation hidden"></div>
+
         <div class="controls">
-          <button id="next-btn" class="btn hidden">ข้อต่อไป</button>
+          <button id="next-btn" class="btn hidden">ข้อต่อไป ➡️</button>
         </div>
       </div>
 
+      <!-- Result -->
       <div id="result" class="card hidden">
         <h2>สรุปผล</h2>
         <p id="score-text"></p>
         <div id="result-detail"></div>
-        <button id="restart-btn">เริ่มใหม่ (เล่นอีกครั้ง)</button>
+        <div style="margin-top:12px">
+          <button id="restart-btn" class="btn">เล่นอีกครั้ง (ล้างบันทึก)</button>
+        </div>
       </div>
+
     </main>
 
     <footer>
-      <small>ไฟล์ทำงานแบบออฟไลน์ได้ — เก็บข้อมูลการเล่นในเครื่อง </small>
+      <small>ไฟล์คำถาม: <code>questions.json</code> — ถ้าไฟล์อยู่คนละโฟลเดอร์ ให้ย้ายมาไว้ที่เดียวกับไฟล์นี้</small>
     </footer>
   </div>
 
-  <script src="questions.json"></script>
-  <script src="script.js"></script>
+  <script>
+    // CONFIG
+    const TOTAL_PER_DAY = 10;
+
+    // ELEMENTS
+    const startBtn = document.getElementById('start-btn');
+    const forceNewBtn = document.getElementById('force-new-btn');
+    const startScreen = document.getElementById('start-screen');
+    const quizEl = document.getElementById('quiz');
+    const questionEl = document.getElementById('question');
+    const choicesEl = document.getElementById('choices');
+    const explanationEl = document.getElementById('explanation');
+    const nextBtn = document.getElementById('next-btn');
+    const currentSpan = document.getElementById('current');
+    const totalSpan = document.getElementById('total');
+    const levelBadge = document.getElementById('level-badge');
+    const resultEl = document.getElementById('result');
+    const scoreText = document.getElementById('score-text');
+    const resultDetail = document.getElementById('result-detail');
+    const restartBtn = document.getElementById('restart-btn');
+
+    // STATE
+    let ALL_QUESTIONS = [];
+    let todaysSet = [];
+    let currentIndex = 0;
+    let score = 0;
+
+    // Utilities
+    function todayKey(){
+      const d = new Date();
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+
+    function sample(arr, n){
+      const copy = arr.slice();
+      const out = [];
+      for(let i=0;i<n && copy.length;i++){
+        const idx = Math.floor(Math.random()*copy.length);
+        out.push(copy.splice(idx,1)[0]);
+      }
+      return out;
+    }
+
+    // Load questions.json (expects JSON array or JS file setting window.ALL_QUESTIONS)
+    async function loadQuestions(){
+      try {
+        // try fetch as JSON first
+        const res = await fetch('questions.json', {cache: "no-store"});
+        if(!res.ok) throw new Error('questions.json not found (HTTP ' + res.status + ')');
+        const text = await res.text();
+        // try parse as JSON
+        try {
+          const parsed = JSON.parse(text);
+          ALL_QUESTIONS = parsed;
+        } catch(e){
+          // maybe questions.json is JS that sets window.ALL_QUESTIONS
+          try {
+            // Evaluate safely by creating a function wrapper (not ideal for untrusted content)
+            // but common pattern: questions.json might be "window.ALL_QUESTIONS = [...] ;"
+            const wrapper = new Function(text + '\nreturn window.ALL_QUESTIONS;');
+            const val = wrapper();
+            if(Array.isArray(val)) ALL_QUESTIONS = val;
+            else throw new Error('Invalid questions file');
+          } catch(err2){
+            console.error(err2);
+            alert('ไม่สามารถอ่าน questions.json ได้ — ตรวจสอบไฟล์ให้เป็น JSON array หรือ JS ที่กำหนด window.ALL_QUESTIONS');
+            return;
+          }
+        }
+      } catch(err){
+        console.error(err);
+        alert('ไม่พบไฟล์ questions.json หรือเกิดข้อผิดพลาดขณะโหลดไฟล์');
+      }
+    }
+
+    function pickTodaysQuestions(all){
+      // group by level
+      const byLevel = { easy:[], medium:[], hard:[] };
+      all.forEach(q => {
+        const lvl = (q.level||'easy').toLowerCase();
+        if(!byLevel[lvl]) byLevel[lvl] = [];
+        byLevel[lvl].push(q);
+      });
+
+      // target distribution: easy 4, medium 4, hard 2 (total 10)
+      const need = { easy:4, medium:4, hard:2 };
+      let selected = [];
+      selected = selected.concat(sample(byLevel.easy, need.easy));
+      selected = selected.concat(sample(byLevel.medium, need.medium));
+      selected = selected.concat(sample(byLevel.hard, need.hard));
+
+      // fill from any remaining if shortage
+      while(selected.length < TOTAL_PER_DAY){
+        const pool = all.filter(q => !selected.includes(q));
+        if(!pool.length) break;
+        selected.push(pool[Math.floor(Math.random()*pool.length)]);
+      }
+
+      // shuffle final
+      for(let i=selected.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [selected[i], selected[j]] = [selected[j], selected[i]];
+      }
+      return selected;
+    }
+
+    function saveSetForToday(set){
+      localStorage.setItem('quizDate', todayKey());
+      localStorage.setItem('quizSet', JSON.stringify(set));
+    }
+
+    function loadSetForToday(){
+      const savedDate = localStorage.getItem('quizDate');
+      const savedSet = localStorage.getItem('quizSet');
+      if(savedDate === todayKey() && savedSet){
+        try {
+          const arr = JSON.parse(savedSet);
+          if(Array.isArray(arr) && arr.length === TOTAL_PER_DAY) return arr;
+        } catch(e){}
+      }
+      return null;
+    }
+
+    function renderQuestion(){
+      if(currentIndex >= todaysSet.length){
+        showResult();
+        return;
+      }
+      const q = todaysSet[currentIndex];
+      currentSpan.textContent = currentIndex + 1;
+      totalSpan.textContent = todaysSet.length;
+      // show level badge
+      levelBadge.textContent = q.level ? q.level.toUpperCase() : '';
+      // show question
+      questionEl.textContent = q.question;
+      // reset choices
+      choicesEl.innerHTML = '';
+      explanationEl.classList.add('hidden');
+      explanationEl.innerHTML = '';
+      nextBtn.classList.add('hidden');
+
+      q.choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = choice;
+        btn.onclick = () => handleAnswer(btn, q);
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    function handleAnswer(btn, q){
+      // disable all
+      const btns = choicesEl.querySelectorAll('button');
+      btns.forEach(b => { b.disabled = true; b.classList.add('disabled'); });
+
+      const selected = btn.textContent;
+      if(selected === q.answer){
+        btn.classList.add('correct');
+        score++;
+      } else {
+        btn.classList.add('wrong');
+        // highlight correct
+        btns.forEach(b => { if(b.textContent === q.answer) b.classList.add('correct'); });
+      }
+
+      // show explanation + translation
+      const explHtml = `
+        <div><strong>เฉลย:</strong> ${q.answer}</div>
+        <div style="margin-top:6px"><strong>คำอธิบาย:</strong> ${q.explanation || '-'}</div>
+        <div style="margin-top:6px"><strong>คำแปล:</strong> ${q.translation || '-'}</div>
+      `;
+      explanationEl.innerHTML = explHtml;
+      explanationEl.classList.remove('hidden');
+
+      nextBtn.classList.remove('hidden');
+    }
+
+    function showResult(){
+      quizEl.classList.add('hidden');
+      resultEl.classList.remove('hidden');
+      scoreText.textContent = `คุณได้ ${score} / ${todaysSet.length} คะแนน`;
+
+      // show short summary list
+      let html = '<ol class="result-list">';
+      todaysSet.forEach((q,i) => {
+        html += `<li><strong>ข้อ ${i+1}:</strong> ${q.question}<br>เฉลย: ${q.answer} — ${q.translation || ''}</li>`;
+      });
+      html += '</ol>';
+      resultDetail.innerHTML = html;
+    }
+
+    // START / RESTART handlers
+    async function startHandler(forceNew = false){
+      await loadQuestions();
+      if(!ALL_QUESTIONS || !ALL_QUESTIONS.length){
+        alert('ไม่มีคำถามในไฟล์ questions.json หรือข้อมูลไม่ถูกต้อง');
+        return;
+      }
+
+      // try load saved set
+      let saved = null;
+      if(!forceNew) saved = loadSetForToday();
+      if(saved){
+        todaysSet = saved;
+      } else {
+        todaysSet = pickTodaysQuestions(ALL_QUESTIONS);
+        saveSetForToday(todaysSet);
+      }
+
+      // show quiz
+      startScreen.classList.add('hidden');
+      resultEl.classList.add('hidden');
+      quizEl.classList.remove('hidden');
+      currentIndex = 0;
+      score = 0;
+      renderQuestion();
+    }
+
+    function pickTodaysQuestions(all){
+      // use pickTodaysQuestions defined earlier logic
+      return pickTodaysQuestionsInner(all);
+    }
+
+    function pickTodaysQuestionsInner(all){
+      // same code as pick function (kept separate to avoid forward ref issues)
+      const byLevel = { easy:[], medium:[], hard:[] };
+      all.forEach(q => {
+        const lvl = (q.level||'easy').toLowerCase();
+        (byLevel[lvl] = byLevel[lvl] || []).push(q);
+      });
+
+      const need = { easy:4, medium:4, hard:2 };
+      let selected = [];
+      selected = selected.concat(sample(byLevel.easy || [], need.easy));
+      selected = selected.concat(sample(byLevel.medium || [], need.medium));
+      selected = selected.concat(sample(byLevel.hard || [], need.hard));
+
+      while(selected.length < TOTAL_PER_DAY){
+        const pool = all.filter(q => !selected.includes(q));
+        if(!pool.length) break;
+        selected.push(pool[Math.floor(Math.random()*pool.length)]);
+      }
+      // shuffle
+      for(let i=selected.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [selected[i], selected[j]] = [selected[j], selected[i]];
+      }
+      return selected;
+    }
+
+    // Event listeners
+    startBtn.addEventListener('click', () => startHandler(false));
+    forceNewBtn.addEventListener('click', () => startHandler(true));
+    nextBtn.addEventListener('click', () => {
+      currentIndex++;
+      if(currentIndex < todaysSet.length) renderQuestion();
+      else showResult();
+    });
+    restartBtn.addEventListener('click', () => {
+      // clear saved set so a new set will be made
+      localStorage.removeItem('quizDate');
+      localStorage.removeItem('quizSet');
+      location.reload();
+    });
+
+    // auto-check if already have today's set -> show start screen but inform
+    (async function precheck(){
+      // try to fetch minimal to ensure questions file exists
+      await loadQuestions();
+      const saved = loadSetForToday();
+      if(saved){
+        // let user continue with saved set (start screen allows force new)
+        console.log('มีชุดของวันนี้แล้ว (เก็บใน localStorage)');
+      }
+    })();
+
+  </script>
 </body>
 </html>
