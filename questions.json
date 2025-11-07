@@ -1,5 +1,5 @@
-window.ALL_QUESTIONS = [
-  {
+window.ALLQUESTIONS = [
+{
     "level": "easy",
     "question": "She _____ to school every day.",
     "choices": [
