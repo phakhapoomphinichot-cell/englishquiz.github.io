@@ -1,40 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <title>English Quiz Game</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>English Vocabulary Trainer</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>English Quiz Game</h1>
-        <div id="login-screen">
-            <input type="text" id="player-name" placeholder="Enter your name">
-            <button id="start-btn">Start Game</button>
+  <div class="wrap">
+    <header>
+      <h1>English Vocabulary Trainer</h1>
+      <p class="muted">Multiple choice (คำศัพท์ + เติมประโยค) — ไม่มีรูป — เก็บคะแนนและแรงค์</p>
+    </header>
+
+    <main>
+      <section id="login">
+        <label>ชื่อผู้เล่น:
+          <input id="playerName" placeholder="พิมพ์ชื่อเพื่อเริ่ม" />
+        </label>
+        <button id="btnStart" class="btn">เริ่ม</button>
+        <div class="saved-info">
+          <span>ผู้เล่นปัจจุบัน: <strong id="currentPlayer">-</strong></span>
+          <span>แรงค์: <strong id="currentRank">-</strong></span>
+          <span>Best: <strong id="bestScore">-</strong></span>
+        </div>
+      </section>
+
+      <section id="game" class="hidden">
+        <div class="topline">
+          <div>Player: <strong id="playerDisplay"></strong></div>
+          <div>Rank: <strong id="rankDisplay"></strong></div>
+          <div>Score: <strong id="scoreDisplay">0</strong>/<span id="totalQ">0</span></div>
         </div>
 
-        <div id="game-screen" class="hidden">
-            <div class="top-bar">
-                <span id="player-display"></span>
-                <span id="rank-display"></span>
-                <button id="increase-font">A+</button>
-                <button id="decrease-font">A-</button>
-            </div>
-            <div id="question-container">
-                <img id="question-image" src="" alt="Image" width="150">
-                <p id="question-text"></p>
-                <div id="answers"></div>
-            </div>
-            <button id="next-btn" class="hidden">Next</button>
+        <div id="qArea" class="card">
+          <div id="qIndex" class="qindex">1 / 20</div>
+          <div id="questionText" class="question"></div>
+          <div id="translationHint" class="hint"></div>
+          <div id="choices" class="choices"></div>
+          <div id="feedback" class="feedback"></div>
+          <div class="controls">
+            <button id="btnNext" class="btn ghost hidden">ถัดไป</button>
+            <button id="btnEnd" class="btn red">จบเกม</button>
+          </div>
         </div>
 
-        <div id="score-screen" class="hidden">
-            <h2>Score</h2>
-            <p id="final-score"></p>
-            <button id="restart-btn">Play Again</button>
+        <div class="small-controls">
+          <label>ขนาดตัวอักษร:
+            <button id="fontInc" class="btn">A+</button>
+            <button id="fontDec" class="btn ghost">A-</button>
+          </label>
         </div>
-    </div>
+      </section>
 
-    <script src="script.js"></script>
+      <section id="result" class="panel hidden">
+        <h2>ผลการทดสอบ</h2>
+        <p id="resultSummary"></p>
+        <p>แรงค์ปัจจุบัน: <strong id="resultRank"></strong></p>
+        <div>
+          <h3>คำที่ตอบผิด</h3>
+          <ul id="wrongList"></ul>
+        </div>
+        <div class="result-actions">
+          <button id="btnPlayAgain" class="btn">เล่นอีกครั้ง</button>
+          <button id="btnBackHome" class="btn ghost">กลับหน้าแรก</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <small>ไฟล์นี้รันได้บน GitHub Pages — สร้าง zip เองแล้วอัปโหลดได้</small>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
