@@ -5,7 +5,7 @@ let playerName = '';
 let fontSize = 16;
 
 // โหลดคำถามจาก JSON
-fetch('questions.json')
+fetch('questions_part1.json')
     .then(res => res.json())
     .then(data => { questions = data; });
 
