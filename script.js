@@ -1,118 +1,79 @@
 let questions = [];
-let currentQuestion = 0;
+let currentQuestionIndex = 0;
 let score = 0;
 let playerName = '';
 let fontSize = 16;
 
 // โหลดคำถามจาก JSON
 fetch('questions.json')
-    .then(res => res.json())
-    .then(data => { questions = data; });
+  .then(res => res.json())
+  .then(data => {
+    questions = data;
+  });
 
-const startBtn = document.getElementById('start-btn');
-const playerInput = document.getElementById('player-name');
-const loginScreen = document.getElementById('login-screen');
-const gameScreen = document.getElementById('game-screen');
-const scoreScreen = document.getElementById('score-screen');
-const questionText = document.getElementById('question-text');
-const translationText = document.getElementById('translation-text');
-const answersDiv = document.getElementById('answers');
-const questionImage = document.getElementById('question-image');
-const nextBtn = document.getElementById('next-btn');
-const playerDisplay = document.getElementById('player-display');
-const rankDisplay = document.getElementById('rank-display');
-const finalScore = document.getElementById('final-score');
-const increaseFont = document.getElementById('increase-font');
-const decreaseFont = document.getElementById('decrease-font');
-const restartBtn = document.getElementById('restart-btn');
-
-// เริ่มเกม
-startBtn.addEventListener('click', () => {
-    playerName = playerInput.value || 'Player';
-    loginScreen.classList.add('hidden');
-    gameScreen.classList.remove('hidden');
-    playerDisplay.textContent = `Player: ${playerName}`;
-    showQuestion();
+document.getElementById('startBtn').addEventListener('click', () => {
+  const nameInput = document.getElementById('playerName').value.trim();
+  if(nameInput === '') {
+    alert('กรุณาใส่ชื่อผู้เล่น');
+    return;
+  }
+  playerName = nameInput;
+  document.querySelector('.player-name').classList.add('hidden');
+  document.getElementById('game').classList.remove('hidden');
+  showQuestion();
 });
 
-// แสดงคำถาม
 function showQuestion() {
-    nextBtn.classList.add('hidden');
-    answersDiv.innerHTML = '';
-    translationText.textContent = '';
-    let q = questions[currentQuestion];
-    questionText.textContent = q.question;
-    questionImage.src = q.image || 'images/default.png';
-    questionText.style.fontSize = fontSize + 'px';
-    q.options.forEach((opt, idx) => {
-        let btn = document.createElement('button');
-        btn.textContent = opt;
-        btn.onclick = () => checkAnswer(idx, btn);
-        answersDiv.appendChild(btn);
-    });
-    updateRank();
+  if(currentQuestionIndex >= questions.length){
+    alert(`${playerName}, จบเกม! คะแนนของคุณ: ${score}`);
+    return;
+  }
+  const q = questions[currentQuestionIndex];
+  document.getElementById('questionText').textContent = q.question;
+  document.getElementById('questionImage').src = q.image;
+  document.getElementById('explanation').textContent = '';
+  
+  const optionsContainer = document.getElementById('optionsContainer');
+  optionsContainer.innerHTML = '';
+  q.options.forEach((option, index) => {
+    const btn = document.createElement('button');
+    btn.textContent = option;
+    btn.style.fontSize = fontSize + 'px';
+    btn.addEventListener('click', () => checkAnswer(index));
+    optionsContainer.appendChild(btn);
+  });
 }
 
-// ตรวจคำตอบ
-function checkAnswer(idx, btn) {
-    let q = questions[currentQuestion];
-    if (idx === q.answer) {
-        score++;
-        btn.classList.add('correct');
-        translationText.textContent = `ถูก! แปล: ${q.translation}`;
-    } else {
-        btn.classList.add('wrong');
-        translationText.textContent = `ผิด! คำตอบถูกคือ: ${q.options[q.answer]} แปล: ${q.translation}`;
-        // ทำให้ปุ่มคำตอบถูกแสดงสีเขียว
-        Array.from(answersDiv.children)[q.answer].classList.add('correct');
-    }
-    // ปิดปุ่มอื่น
-    Array.from(answersDiv.children).forEach(b => b.disabled = true);
-
-    currentQuestion++;
-    if (currentQuestion < questions.length) nextBtn.classList.remove('hidden');
-    else nextBtn.textContent = "Finish";
+function checkAnswer(selected) {
+  const q = questions[currentQuestionIndex];
+  if(selected === q.answer){
+    score += 1;
+  }
+  document.getElementById('score').textContent = score;
+  document.getElementById('explanation').textContent = q.translation;
+  updateRank();
+  currentQuestionIndex++;
+  setTimeout(showQuestion, 1500);
 }
 
-// ต่อไป / สรุปคะแนน
-nextBtn.addEventListener('click', () => {
-    if (currentQuestion < questions.length) {
-        showQuestion();
-    } else {
-        showScore();
-    }
-});
-
-// แสดงคะแนน
-function showScore() {
-    gameScreen.classList.add('hidden');
-    scoreScreen.classList.remove('hidden');
-    finalScore.textContent = `${playerName}, your score: ${score} / ${questions.length}`;
+function updateRank(){
+  let rank = 'Beginner';
+  if(score > 50) rank = 'Intermediate';
+  if(score > 150) rank = 'Advanced';
+  if(score > 300) rank = 'Expert';
+  document.getElementById('rank').textContent = rank;
 }
 
-// ปรับขนาดตัวอักษร
-increaseFont.addEventListener('click', () => {
-    fontSize += 2;
-    questionText.style.fontSize = fontSize + 'px';
+document.getElementById('increaseFont').addEventListener('click', () => {
+  fontSize += 2;
+  updateFont();
 });
-decreaseFont.addEventListener('click', () => {
-    fontSize = Math.max(12, fontSize - 2);
-    questionText.style.fontSize = fontSize + 'px';
-});
-
-// เล่นใหม่
-restartBtn.addEventListener('click', () => {
-    location.reload();
+document.getElementById('decreaseFont').addEventListener('click', () => {
+  fontSize -= 2;
+  updateFont();
 });
 
-// อัปเดตรายการ Rank
-function updateRank() {
-    let percent = currentQuestion > 0 ? (score / currentQuestion) * 100 : 0;
-    let rank = '';
-    if (percent < 20) rank = 'Beginner';
-    else if (percent < 40) rank = 'Elementary';
-    else if (percent < 60) rank = 'Intermediate';
-    else if (percent < 80) rank = 'Advanced';
-    else rank = 'Expert';
-    rankDisplay.textContent = `Rank: ${rank}`;
+function updateFont(){
+  document.getElementById('questionText').style.fontSize = fontSize + 'px';
+  document.querySelectorAll('#optionsContainer button').forEach(btn => btn.style.fontSize = fontSize + 'px');
 }
