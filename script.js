@@ -15,6 +15,7 @@ const loginScreen = document.getElementById('login-screen');
 const gameScreen = document.getElementById('game-screen');
 const scoreScreen = document.getElementById('score-screen');
 const questionText = document.getElementById('question-text');
+const translationText = document.getElementById('translation-text');
 const answersDiv = document.getElementById('answers');
 const questionImage = document.getElementById('question-image');
 const nextBtn = document.getElementById('next-btn');
@@ -38,6 +39,7 @@ startBtn.addEventListener('click', () => {
 function showQuestion() {
     nextBtn.classList.add('hidden');
     answersDiv.innerHTML = '';
+    translationText.textContent = '';
     let q = questions[currentQuestion];
     questionText.textContent = q.question;
     questionImage.src = q.image || 'images/default.png';
@@ -45,22 +47,41 @@ function showQuestion() {
     q.options.forEach((opt, idx) => {
         let btn = document.createElement('button');
         btn.textContent = opt;
-        btn.onclick = () => checkAnswer(idx);
+        btn.onclick = () => checkAnswer(idx, btn);
         answersDiv.appendChild(btn);
     });
     updateRank();
 }
 
 // ตรวจคำตอบ
-function checkAnswer(idx) {
+function checkAnswer(idx, btn) {
     let q = questions[currentQuestion];
-    if (idx === q.answer) score += 1;
+    if (idx === q.answer) {
+        score++;
+        btn.classList.add('correct');
+        translationText.textContent = `ถูก! แปล: ${q.translation}`;
+    } else {
+        btn.classList.add('wrong');
+        translationText.textContent = `ผิด! คำตอบถูกคือ: ${q.options[q.answer]} แปล: ${q.translation}`;
+        // ทำให้ปุ่มคำตอบถูกแสดงสีเขียว
+        Array.from(answersDiv.children)[q.answer].classList.add('correct');
+    }
+    // ปิดปุ่มอื่น
+    Array.from(answersDiv.children).forEach(b => b.disabled = true);
+
     currentQuestion++;
     if (currentQuestion < questions.length) nextBtn.classList.remove('hidden');
-    else showScore();
+    else nextBtn.textContent = "Finish";
 }
 
-nextBtn.addEventListener('click', showQuestion);
+// ต่อไป / สรุปคะแนน
+nextBtn.addEventListener('click', () => {
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showScore();
+    }
+});
 
 // แสดงคะแนน
 function showScore() {
@@ -86,7 +107,7 @@ restartBtn.addEventListener('click', () => {
 
 // อัปเดตรายการ Rank
 function updateRank() {
-    let percent = (score / (currentQuestion + 1)) * 100;
+    let percent = currentQuestion > 0 ? (score / currentQuestion) * 100 : 0;
     let rank = '';
     if (percent < 20) rank = 'Beginner';
     else if (percent < 40) rank = 'Elementary';
