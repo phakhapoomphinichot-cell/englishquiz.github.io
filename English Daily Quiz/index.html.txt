@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Daily English Quiz (ม.6)</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+<header>
+<h1>Daily English Quiz — ม.6</h1>
+<p class="sub">เล่น 10 ข้อทุกวัน — มีเฉลย คำอธิบาย และคำแปล</p>
+</header>
+
+
+<main>
+<div id="start-screen" class="card">
+<p>ระบบจะสุ่มคำถาม 10 ข้อต่อวันจากคลังคำถาม 150 ข้อ (แบ่งระดับ: easy/medium/hard)</p>
+<button id="start-btn">เริ่มวันนี้ (10 ข้อ)</button>
+<p class="note">ระบบจะจดจำวันและข้อที่คุณเล่นไว้ในเครื่อง (localStorage)</p>
+</div>
+
+
+<div id="quiz" class="card hidden">
+<div id="progress">ข้อ <span id="current">1</span> / 10</div>
+<div id="question" class="question">คำถามจะขึ้นที่นี่</div>
+<div id="choices" class="choices"></div>
+<div id="explanation" class="explanation hidden"></div>
+<div class="controls">
+<button id="next-btn" class="btn hidden">ข้อต่อไป</button>
+</div>
+</div>
+
+
+<div id="result" class="card hidden">
+<h2>สรุปผล</h2>
+<p id="score-text"></p>
+<div id="result-detail"></div>
+<button id="restart-btn">เริ่มใหม่ (เล่นอีกครั้ง)</button>
+</div>
+</main>
+
+
+<footer>
+<small>ไฟล์ทำงานแบบออฟไลน์ได้ — เก็บข้อมูลการเล่นในเครื่อง (localStorage)</small>
+</footer>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
