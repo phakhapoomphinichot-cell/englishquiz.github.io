@@ -1,45 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>English Quiz Game</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>English Learning Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>English Quiz Game</h1>
-
-        <!-- หน้า Login -->
-        <div id="login-screen">
-            <input type="text" id="player-name" placeholder="Enter your name">
-            <button id="start-btn">Start Game</button>
-        </div>
-
-        <!-- หน้าเกม -->
-        <div id="game-screen" class="hidden">
-            <div class="top-bar">
-                <span id="player-display"></span>
-                <span id="rank-display"></span>
-                <button id="increase-font">A+</button>
-                <button id="decrease-font">A-</button>
-            </div>
-            <div id="question-container">
-                <img id="question-image" src="images/default.png" alt="Image" width="150">
-                <p id="question-text"></p>
-                <p id="translation-text" class="translation"></p>
-                <div id="answers"></div>
-            </div>
-            <button id="next-btn" class="hidden">Next</button>
-        </div>
-
-        <!-- หน้า Score -->
-        <div id="score-screen" class="hidden">
-            <h2>Score</h2>
-            <p id="final-score"></p>
-            <button id="restart-btn">Play Again</button>
-        </div>
+  <div class="container">
+    <h1>English Learning Game</h1>
+    <div class="player-name">
+      ชื่อผู้เล่น: <input type="text" id="playerName" placeholder="ใส่ชื่อของคุณ">
+      <button id="startBtn">เริ่มเกม</button>
     </div>
-
-    <script src="script.js"></script>
+    <div id="game" class="hidden">
+      <div id="questionContainer">
+        <img id="questionImage" src="" alt="question image">
+        <p id="questionText"></p>
+      </div>
+      <div id="optionsContainer"></div>
+      <p id="explanation"></p>
+      <div class="controls">
+        <button id="increaseFont">A+</button>
+        <button id="decreaseFont">A-</button>
+      </div>
+      <p>คะแนน: <span id="score">0</span></p>
+      <p>Rank: <span id="rank">Beginner</span></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
