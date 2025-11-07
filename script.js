@@ -1,11 +1,18 @@
-// script.js
-// English Vocabulary Trainer (no images). Generates 500 Qs (mixed: word-definition + fill-in).
-// Features: player name, rank system, store best score & player data in localStorage, font size control.
+// script.js (updated for vocab-only quiz + mixed difficulty + cumulative rank thresholds)
 
-// ------------------------ WORDS (500 คำ) ------------------------
-// For brevity this array contains 500 common words (en/th). You can edit/extend.
+// ---------- CONFIG ----------
+const TOTAL_PER_ROUND = 20; // จำนวนคำต่อรอบ (ปรับได้)
+const STORAGE_KEY = 'ev_players'; // localStorage key
+// Rank thresholds are based on cumulative totalCorrect
+const RANKS = [
+  { name: 'Novice', min: 0 },
+  { name: 'Beginner', min: 10 },
+  { name: 'Intermediate', min: 30 },
+  { name: 'Advanced', min: 60 },
+  { name: 'Expert', min: 100 } 
+];
 const WORDS = [
-  {en:"apple", th:"แอปเปิล"},
+{en:"apple", th:"แอปเปิล; ผลไม้"},
   {en:"book", th:"หนังสือ"},
   {en:"cat", th:"แมว"},
   {en:"dog", th:"สุนัข"},
@@ -20,224 +27,408 @@ const WORDS = [
   {en:"chair", th:"เก้าอี้"},
   {en:"pen", th:"ปากกา"},
   {en:"pencil", th:"ดินสอ"},
-  {en:"banana", th:"กล้วย"},
-  {en:"orange", th:"ส้ม"},
-  {en:"grape", th:"องุ่น"},
-  {en:"milk", th:"นม"},
-  {en:"juice", th:"น้ำผลไม้"},
-  {en:"coffee", th:"กาแฟ"},
-  {en:"tea", th:"ชา"},
+  {en:"phone", th:"โทรศัพท์"},
+  {en:"computer", th:"คอมพิวเตอร์"},
+  {en:"friend", th:"เพื่อน"},
+  {en:"family", th:"ครอบครัว"},
+  {en:"baby", th:"ทารก"},
+  {en:"mother", th:"แม่"},
+  {en:"father", th:"พ่อ"},
   {en:"bread", th:"ขนมปัง"},
   {en:"rice", th:"ข้าว"},
   {en:"egg", th:"ไข่"},
-  {en:"chicken", th:"ไก่"},
-  {en:"beef", th:"เนื้อวัว"},
-  {en:"pork", th:"หมู"},
-  {en:"fish", th:"ปลา"},
-  {en:"carrot", th:"แครอท"},
-  {en:"tomato", th:"มะเขือเทศ"},
-  {en:"potato", th:"มันฝรั่ง"},
-  {en:"lettuce", th:"ผักกาด"},
-  {en:"sun", th:"ดวงอาทิตย์"},
-  {en:"moon", th:"ดวงจันทร์"},
-  {en:"star", th:"ดาว"},
-  {en:"cloud", th:"เมฆ"},
-  {en:"rain", th:"ฝน"},
-  {en:"snow", th:"หิมะ"},
-  {en:"wind", th:"ลม"},
-  {en:"sunshine", th:"แดด"},
-  {en:"red", th:"แดง"},
-  {en:"blue", th:"น้ำเงิน"},
-  {en:"green", th:"เขียว"},
-  {en:"yellow", th:"เหลือง"},
-  {en:"black", th:"ดำ"},
-  {en:"white", th:"ขาว"},
-  {en:"hot", th:"ร้อน"},
-  {en:"cold", th:"หนาว"},
-  {en:"big", th:"ใหญ่"},
-  {en:"small", th:"เล็ก"},
-  {en:"long", th:"ยาว"},
-  {en:"short", th:"สั้น"},
+  {en:"milk", th:"นม"},
+  {en:"sleep", th:"หลับ"},
+  {en:"walk", th:"เดิน"},
+  {en:"run", th:"วิ่ง"},
+  {en:"eat", th:"กิน"},
+  {en:"drink", th:"ดื่ม"},
+  {en:"sit", th:"นั่ง"},
+  {en:"stand", th:"ยืน"},
+  {en:"love", th:"รัก"},
   {en:"happy", th:"มีความสุข"},
   {en:"sad", th:"เศร้า"},
-  {en:"angry", th:"โกรธ"},
-  {en:"afraid", th:"กลัว"},
-  {en:"monday", th:"วันจันทร์"},
-  {en:"tuesday", th:"วันอังคาร"},
-  {en:"wednesday", th:"วันพุธ"},
-  {en:"thursday", th:"วันพฤหัส"},
-  {en:"friday", th:"วันศุกร์"},
-  {en:"saturday", th:"วันเสาร์"},
-  {en:"sunday", th:"วันอาทิตย์"},
-  {en:"friend", th:"เพื่อน"},
-  {en:"family", th:"ครอบครัว"},
-  {en:"father", th:"พ่อ"},
-  {en:"mother", th:"แม่"},
-  {en:"brother", th:"พี่ชาย/น้องชาย"},
-  {en:"sister", th:"พี่สาว/น้องสาว"},
-  {en:"baby", th:"เด็กทารก"},
-  {en:"man", th:"ผู้ชาย"},
-  {en:"woman", th:"ผู้หญิง"},
-  {en:"child", th:"เด็ก"},
-  {en:"doctor", th:"แพทย์"},
-  {en:"nurse", th:"พยาบาล"},
-  {en:"police", th:"ตำรวจ"},
-  {en:"firefighter", th:"นักผจญเพลิง"},
+  {en:"hot", th:"ร้อน"},
+  {en:"cold", th:"หนาว"},
+  {en:"day", th:"วัน"},
+  {en:"night", th:"กลางคืน"},
+  {en:"sun", th:"พระอาทิตย์"},
+  {en:"moon", th:"พระจันทร์"},
+  {en:"city", th:"เมือง"},
+  {en:"country", th:"ประเทศ"},
   {en:"shop", th:"ร้านค้า"},
   {en:"market", th:"ตลาด"},
-  {en:"supermarket", th:"ซูเปอร์มาร์เก็ต"},
-  {en:"hospital", th:"โรงพยาบาล"},
-  {en:"bank", th:"ธนาคาร"},
-  {en:"post office", th:"ที่ทำการไปรษณีย์"},
-  {en:"library", th:"ห้องสมุด"},
+  {en:"work", th:"ทำงาน"},
+  {en:"play", th:"เล่น"},
+
+  // 51-150 (common everyday)
+  {en:"window", th:"หน้าต่าง"},
+  {en:"door", th:"ประตู"},
+  {en:"floor", th:"พื้น"},
+  {en:"ceiling", th:"เพดาน"},
+  {en:"kitchen", th:"ห้องครัว"},
+  {en:"garden", th:"สวน"},
   {en:"park", th:"สวนสาธารณะ"},
-  {en:"bus", th:"รถประจำทาง"},
+  {en:"bus", th:"รถเมล์"},
   {en:"train", th:"รถไฟ"},
   {en:"plane", th:"เครื่องบิน"},
-  {en:"boat", th:"เรือ"},
-  {en:"bicycle", th:"จักรยาน"},
-  {en:"motorbike", th:"มอเตอร์ไซค์"},
-  {en:"road", th:"ถนน"},
-  {en:"street", th:"ถนน"},
-  {en:"bridge", th:"สะพาน"},
-  {en:"river", th:"แม่น้ำ"},
-  {en:"mountain", th:"ภูเขา"},
-  {en:"sea", th:"ทะเล"},
-  {en:"lake", th:"ทะเลสาบ"},
-  {en:"tree", th:"ต้นไม้"},
-  {en:"flower", th:"ดอกไม้"},
-  {en:"grass", th:"หญ้า"},
-  {en:"leaf", th:"ใบไม้"},
-  {en:"sky", th:"ท้องฟ้า"},
-  {en:"earth", th:"โลก"},
-  {en:"storm", th:"พายุ"},
-  {en:"ice", th:"น้ำแข็ง"},
-  {en:"fruit", th:"ผลไม้"},
-  {en:"vegetable", th:"ผัก"},
-  {en:"meat", th:"เนื้อสัตว์"},
-  {en:"noodle", th:"ก๋วยเตี๋ยว"},
-  {en:"soup", th:"ซุป"},
-  {en:"cake", th:"เค้ก"},
-  {en:"cookie", th:"คุกกี้"},
-  {en:"chocolate", th:"ช็อกโกแลต"},
-  {en:"ice cream", th:"ไอศกรีม"},
-  {en:"drink", th:"เครื่องดื่ม"},
-  {en:"shirt", th:"เสื้อ"},
-  {en:"pants", th:"กางเกง"},
-  {en:"skirt", th:"กระโปรง"},
-  {en:"dress", th:"ชุดเดรส"},
-  {en:"shoe", th:"รองเท้า"},
-  {en:"sock", th:"ถุงเท้า"},
-  {en:"hat", th:"หมวก"},
-  {en:"glove", th:"ถุงมือ"},
-  {en:"bag", th:"กระเป๋า"},
-  {en:"wallet", th:"กระเป๋าสตางค์"},
-  {en:"belt", th:"เข็มขัด"},
-  {en:"watch", th:"นาฬิกา"},
-  {en:"ring", th:"แหวน"},
-  {en:"necklace", th:"สร้อยคอ"},
-  {en:"earring", th:"ต่างหู"},
-  {en:"phone", th:"โทรศัพท์"},
-  {en:"computer", th:"คอมพิวเตอร์"},
-  {en:"laptop", th:"แล็ปท็อป"},
-  {en:"tablet", th:"แท็บเล็ต"},
-  {en:"camera", th:"กล้อง"},
-  {en:"television", th:"โทรทัศน์"},
-  {en:"radio", th:"วิทยุ"},
-  {en:"music", th:"ดนตรี"},
-  {en:"song", th:"เพลง"},
+  {en:"ticket", th:"ตั๋ว"},
+  {en:"money", th:"เงิน"},
+  {en:"shopper", th:"ผู้ซื้อ"},
+  {en:"doctor", th:"แพทย์"},
+  {en:"hospital", th:"โรงพยาบาล"},
+  {en:"medicine", th:"ยา"},
+  {en:"bank", th:"ธนาคาร"},
+  {en:"library", th:"ห้องสมุด"},
   {en:"movie", th:"ภาพยนตร์"},
-  {en:"game", th:"เกม"},
+  {en:"music", th:"เพลง"},
+  {en:"song", th:"เพลง"},
+  {en:"dance", th:"เต้น"},
   {en:"sport", th:"กีฬา"},
   {en:"football", th:"ฟุตบอล"},
   {en:"basketball", th:"บาสเกตบอล"},
-  {en:"tennis", th:"เทนนิส"},
   {en:"swim", th:"ว่ายน้ำ"},
-  {en:"run", th:"วิ่ง"},
-  {en:"walk", th:"เดิน"},
-  {en:"jump", th:"กระโดด"},
-  {en:"dance", th:"เต้นรำ"},
-  {en:"sing", th:"ร้องเพลง"},
-  {en:"read", th:"อ่าน"},
-  {en:"write", th:"เขียน"},
-  {en:"listen", th:"ฟัง"},
-  {en:"speak", th:"พูด"},
-  {en:"sleep", th:"นอน"},
-  {en:"wake", th:"ตื่น"},
-  {en:"sit", th:"นั่ง"},
-  {en:"stand", th:"ยืน"},
-  {en:"open", th:"เปิด"},
-  {en:"close", th:"ปิด"},
-  {en:"buy", th:"ซื้อ"},
-  {en:"sell", th:"ขาย"},
-  {en:"pay", th:"จ่าย"},
-  {en:"eat", th:"กิน"},
-  {en:"cook", th:"ทำอาหาร"},
-  {en:"clean", th:"ทำความสะอาด"},
-  {en:"wash", th:"ล้าง"},
-  {en:"cut", th:"ตัด"},
+  {en:"walkway", th:"ทางเดิน"},
+  {en:"road", th:"ถนน"},
+  {en:"bridge", th:"สะพาน"},
+  {en:"river", th:"แม่น้ำ"},
+  {en:"sea", th:"ทะเล"},
+  {en:"mountain", th:"ภูเขา"},
+  {en:"island", th:"เกาะ"},
+  {en:"weather", th:"สภาพอากาศ"},
+  {en:"rain", th:"ฝน"},
+  {en:"storm", th:"พายุ"},
+  {en:"cloud", th:"เมฆ"},
+  {en:"wind", th:"ลม"},
+  {en:"temperature", th:"อุณหภูมิ"},
+  {en:"clock", th:"นาฬิกา"},
+  {en:"time", th:"เวลา"},
+  {en:"minute", th:"นาที"},
+  {en:"hour", th:"ชั่วโมง"},
+  {en:"week", th:"สัปดาห์"},
+  {en:"month", th:"เดือน"},
+  {en:"year", th:"ปี"},
+  {en:"holiday", th:"วันหยุด"},
+  {en:"festival", th:"เทศกาล"},
+  {en:"party", th:"งานเลี้ยง"},
+  {en:"gift", th:"ของขวัญ"},
+  {en:"present", th:"ของขวัญ"},
+  {en:"holiday", th:"วันหยุด (ซ้ำได้เป็นคำอธิบาย)"},
+  {en:"ticket", th:"ตั๋ว (ซ้ำ)"},
+  {en:"camera", th:"กล้อง"},
+  {en:"photo", th:"ภาพถ่าย"},
+  {en:"picture", th:"ภาพ"},
+  {en:"idea", th:"ความคิด"},
+  {en:"problem", th:"ปัญหา"},
+  {en:"solution", th:"ทางแก้"},
+  {en:"question", th:"คำถาม"},
+  {en:"answer", th:"คำตอบ"},
+  {en:"information", th:"ข้อมูล"},
+  {en:"news", th:"ข่าว"},
+  {en:"email", th:"อีเมล"},
+  {en:"message", th:"ข้อความ"},
+  {en:"letter", th:"จดหมาย"},
+  {en:"note", th:"บันทึก"},
+  {en:"map", th:"แผนที่"},
+  {en:"direction", th:"ทิศทาง"},
+  {en:"distance", th:"ระยะทาง"},
+  {en:"speed", th:"ความเร็ว"},
+  {en:"weight", th:"น้ำหนัก"},
+  {en:"size", th:"ขนาด"},
+  {en:"height", th:"ความสูง"},
+  {en:"width", th:"ความกว้าง"},
+  {en:"depth", th:"ความลึก"},
+  {en:"color", th:"สี"},
+  {en:"shape", th:"รูปร่าง"},
+  {en:"texture", th:"พื้นผิว"},
+  {en:"material", th:"วัสดุ"},
+
+  // 151-300 (less basic; verbs/nouns/adjectives)
+  {en:"accept", th:"ยอมรับ"},
+  {en:"achieve", th:"ประสบความสำเร็จ"},
+  {en:"act", th:"กระทำ"},
+  {en:"add", th:"เพิ่ม"},
+  {en:"allow", th:"อนุญาต"},
+  {en:"apply", th:"สมัคร / ประยุกต์"},
+  {en:"arrive", th:"มาถึง"},
+  {en:"ask", th:"ถาม"},
+  {en:"believe", th:"เชื่อ"},
   {en:"build", th:"สร้าง"},
-  {en:"draw", th:"วาด"},
-  {en:"paint", th:"ระบายสี"},
+  {en:"buy", th:"ซื้อ"},
+  {en:"call", th:"โทร / เรียก"},
+  {en:"change", th:"เปลี่ยน"},
+  {en:"choose", th:"เลือก"},
+  {en:"clean", th:"ทำความสะอาด"},
+  {en:"close", th:"ปิด"},
+  {en:"compare", th:"เปรียบเทียบ"},
+  {en:"continue", th:"ต่อเนื่อง"},
+  {en:"create", th:"สร้าง"},
+  {en:"decide", th:"ตัดสินใจ"},
+  {en:"discover", th:"ค้นพบ"},
   {en:"drive", th:"ขับรถ"},
-  {en:"fly", th:"บิน"},
-  {en:"ride", th:"ขี่"},
-  {en:"climb", th:"ปีน"},
-  {en:"move", th:"ย้าย"},
-  {en:"stop", th:"หยุด"},
-  {en:"go", th:"ไป"},
-  {en:"come", th:"มา"},
-  {en:"bring", th:"นำมา"},
-  {en:"take", th:"เอาไป"},
-  {en:"give", th:"ให้"},
-  {en:"want", th:"ต้องการ"},
-  {en:"need", th:"จำเป็นต้องมี"},
-  {en:"like", th:"ชอบ"},
-  {en:"love", th:"รัก"},
-  {en:"hate", th:"เกลียด"},
-  {en:"think", th:"คิด"},
-  {en:"know", th:"รู้"},
-  {en:"understand", th:"เข้าใจ"},
-  {en:"remember", th:"จำ"},
+  {en:"enjoy", th:"เพลิดเพลิน"},
+  {en:"explain", th:"อธิบาย"},
+  {en:"extend", th:"ขยาย"},
+  {en:"fix", th:"ซ่อม"},
+  {en:"follow", th:"ตาม"},
   {en:"forget", th:"ลืม"},
   {en:"help", th:"ช่วย"},
-  {en:"ask", th:"ถาม"},
-  {en:"answer", th:"ตอบ"},
-  {en:"call", th:"โทร"},
-  {en:"send", th:"ส่ง"},
-  {en:"receive", th:"รับ"},
-  {en:"wait", th:"รอ"},
-  {en:"start", th:"เริ่ม"},
-  {en:"finish", th:"จบ"},
-  {en:"play", th:"เล่น"},
-  {en:"work", th:"ทำงาน"},
-  {en:"study", th:"ศึกษา"},
-  {en:"teach", th:"สอน"},
-  {en:"watch", th:"ดู"},
-  {en:"look", th:"มอง"},
-  {en:"see", th:"เห็น"},
-  {en:"hear", th:"ได้ยิน"},
-  {en:"smell", th:"ได้กลิ่น"},
-  {en:"touch", th:"สัมผัส"},
-  {en:"taste", th:"ชิม"},
-  {en:"feel", th:"รู้สึก"},
-  {en:"grow", th:"เติบโต"},
-  {en:"change", th:"เปลี่ยน"},
+  {en:"hold", th:"ถือไว้"},
+  {en:"include", th:"รวมถึง"},
+  {en:"intend", th:"ตั้งใจ"},
+  {en:"learn", th:"เรียนรู้"},
+  {en:"listen", th:"ฟัง"},
+  {en:"lose", th:"เสีย / สูญเสีย"},
+  {en:"manage", th:"จัดการ"},
+  {en:"move", th:"ย้าย"},
   {en:"open", th:"เปิด"},
-  {en:"close", th:"ปิด"}
-];
-// ------------------------ end WORDS ------------------------
+  {en:"offer", th:"เสนอ"},
+  {en:"organize", th:"จัดระเบียบ"},
+  {en:"pay", th:"จ่าย"},
+  {en:"perform", th:"แสดง / ปฏิบัติ"},
+  {en:"produce", th:"ผลิต"},
+  {en:"protect", th:"ปกป้อง"},
+  {en:"provide", th:"ให้"},
+  {en:"reach", th:"เข้าถึง"},
+  {en:"receive", th:"ได้รับ"},
+  {en:"reflect", th:"สะท้อน"},
+  {en:"remain", th:"ยังคงอยู่"},
+  {en:"require", th:"ต้องการ"},
+  {en:"respond", th:"ตอบ"},
+  {en:"result", th:"ผลลัพธ์"},
+  {en:"search", th:"ค้นหา"},
+  {en:"sell", th:"ขาย"},
+  {en:"share", th:"แบ่งปัน"},
+  {en:"support", th:"สนับสนุน"},
+  {en:"suggest", th:"แนะนำ"},
+  {en:"teach", th:"สอน"},
+  {en:"travel", th:"เดินทาง"},
+  {en:"understand", th:"เข้าใจ"},
+  {en:"visit", th:"เยี่ยมชม"},
+  {en:"win", th:"ชนะ"},
+  {en:"wish", th:"ปรารถนา"},
+  {en:"write", th:"เขียน"},
+  {en:"career", th:"อาชีพ"},
+  {en:"business", th:"ธุรกิจ"},
+  {en:"company", th:"บริษัท"},
+  {en:"project", th:"โครงการ"},
+  {en:"industry", th:"อุตสาหกรรม"},
+  {en:"market", th:"ตลาด (ซ้ำได้)"},
+  {en:"customer", th:"ลูกค้า"},
+  {en:"service", th:"บริการ"},
+  {en:"price", th:"ราคา"},
+  {en:"cost", th:"ต้นทุน"},
+  {en:"profit", th:"กำไร"},
+  {en:"loss", th:"ขาดทุน"},
+  {en:"policy", th:"นโยบาย"},
+  {en:"strategy", th:"ยุทธศาสตร์"},
+  {en:"budget", th:"งบประมาณ"},
+  {en:"resource", th:"ทรัพยากร"},
+  {en:"skill", th:"ทักษะ"},
+  {en:"quality", th:"คุณภาพ"},
+  {en:"option", th:"ตัวเลือก"},
+  {en:"feature", th:"คุณสมบัติ"},
+  {en:"function", th:"ฟังก์ชัน"},
 
+  // 301-400 (more advanced / academic / abstract)
+  {en:"abstract", th:"นามธรรม"},
+  {en:"analysis", th:"การวิเคราะห์"},
+  {en:"approach", th:"แนวทาง"},
+  {en:"area", th:"พื้นที่ / บริเวณ"},
+  {en:"aspect", th:"ด้าน"},
+  {en:"assume", th:"สันนิษฐาน"},
+  {en:"authority", th:"อำนาจ"},
+  {en:"available", th:"มีให้"},
+  {en:"capacity", th:"ความสามารถ / ความจุ"},
+  {en:"challenge", th:"ความท้าทาย"},
+  {en:"circumstance", th:"สถานการณ์"},
+  {en:"component", th:"ส่วนประกอบ"},
+  {en:"consequence", th:"ผลที่ตามมา"},
+  {en:"construct", th:"ก่อสร้าง / สร้างขึ้น"},
+  {en:"context", th:"บริบท"},
+  {en:"contract", th:"สัญญา"},
+  {en:"create", th:"สร้าง (ซ้ำ)"},
+  {en:"data", th:"ข้อมูล"},
+  {en:"definition", th:"คำนิยาม"},
+  {en:"design", th:"การออกแบบ"},
+  {en:"distribution", th:"การกระจาย"},
+  {en:"economy", th:"เศรษฐกิจ"},
+  {en:"environment", th:"สิ่งแวดล้อม"},
+  {en:"establish", th:"สถาปนา / ก่อตั้ง"},
+  {en:"evaluate", th:"ประเมิน"},
+  {en:"evidence", th:"หลักฐาน"},
+  {en:"factor", th:"ปัจจัย"},
+  {en:"interpret", th:"ตีความ"},
+  {en:"issue", th:"ประเด็น"},
+  {en:"method", th:"วิธีการ"},
+  {en:"process", th:"กระบวนการ"},
+  {en:"range", th:"ช่วง"},
+  {en:"role", th:"บทบาท"},
+  {en:"sector", th:"ภาคส่วน"},
+  {en:"significant", th:"สำคัญ"},
+  {en:"source", th:"แหล่ง"},
+  {en:"structure", th:"โครงสร้าง"},
+  {en:"theory", th:"ทฤษฎี"},
+  {en:"variable", th:"ตัวแปร"},
+  {en:"volume", th:"ปริมาณ"},
+  {en:"version", th:"เวอร์ชัน"},
+  {en:"via", th:"ผ่านทาง"},
+  {en:"welfare", th:"สวัสดิการ"},
+  {en:"whereas", th:"ในขณะที่"},
+  {en:"wherever", th:"ทุกที่ที่"},
+  {en:"whether", th:"หรือไม่"},
+  {en:"where", th:"ที่ไหน"},
+  {en:"whenever", th:"เมื่อไรก็ตาม"},
+  {en:"whom", th:"ใคร (กรรม)"},
+  {en:"whose", th:"ของใคร"},
 
-// ------------------------ app state & DOM ------------------------
-const TOTAL_PER_ROUND = 20; // จำนวนคำต่อรอบ
-let questions = []; // generated quiz
+  // 401-500 (challenging / advanced vocabulary)
+  {en:"abundant", th:"อุดมสมบูรณ์"},
+  {en:"benevolent", th:"มีเมตตา"},
+  {en:"coherent", th:"สอดคล้อง"},
+  {en:"detrimental", th:"เป็นอันตราย"},
+  {en:"elaborate", th:"ซับซ้อน/อธิบายละเอียด"},
+  {en:"feasible", th:"เป็นไปได้"},
+  {en:"gregarious", th:"ชอบเข้าสังคม"},
+  {en:"heterogeneous", th:"หลากหลาย"},
+  {en:"imperative", th:"สำคัญเร่งด่วน"},
+  {en:"juxtapose", th:"วางชิดกันเพื่อเปรียบเทียบ"},
+  {en:"kinetic", th:"เกี่ยวกับการเคลื่อนไหว"},
+  {en:"lucrative", th:"มีกำไร"},
+  {en:"meticulous", th:"พิถีพิถัน"},
+  {en:"nuance", th:"นัย / ความแตกต่างเล็กน้อย"},
+  {en:"obsolete", th:"ล้าสมัย"},
+  {en:"plausible", th:"มีความเป็นไปได้"},
+  {en:"quintessential", th:"เป็นแบบฉบับที่สำคัญ"},
+  {en:"resilient", th:"ยืดหยุ่น, ให้ฟื้นตัวได้ง่าย"},
+  {en:"substantiate", th:"พิสูจน์ให้เป็นจริง"},
+  {en:"tenacious", th:"แน่วแน่"},
+  {en:"ubiquitous", th:"แพร่หลาย"},
+  {en:"validate", th:"ตรวจสอบความถูกต้อง"},
+  {en:"whimsical", th:"แปลกประหลาด, ชอบเล่นสนุก"},
+  {en:"xenophobia", th:"ความกลัวคนต่างชาติ"},
+  {en:"yielding", th:"ยอม / ให้ผล"},
+  {en:"zealous", th:"กระตือรือร้น"},
+  {en:"ambiguous", th:"กำกวม"},
+  {en:"bolster", th:"สนับสนุน"},
+  {en:"concur", th:"เห็นด้วย"},
+  {en:"deleterious", th:"เป็นอันตราย"},
+  {en:"exacerbate", th:"ทำให้แย่ลง"},
+  {en:"facilitate", th:"อำนวยความสะดวก"},
+  {en:"galvanize", th:"กระตุ้น"},
+  {en:"harbinger", th:"คำบอกเหตุ / สิ่งบ่งชี้"},
+  {en:"impeccable", th:"ไม่มีที่ติ"},
+  {en:"jubilant", th:"ชื่นชมยินดี"},
+  {en:"kudos", th:"คำชมเชย"},
+  {en:"lament", th:"คร่ำครวญ"},
+  {en:"malleable", th:"ดัดแปลงได้"},
+  {en:"negligible", th:"เล็กน้อยจนมองข้ามได้"},
+  {en:"ostentatious", th:"โอ้อวด"},
+  {en:"pragmatic", th:"เชิงปฏิบัติ"},
+  {en:"quantify", th:"วัดเชิงปริมาณ"},
+  {en:"ramification", th:"ผลที่ตามมา"},
+  {en:"salient", th:"โดดเด่น"},
+  {en:"tantamount", th:"เท่ากับ"},
+  {en:"validate", th:"ตรวจสอบ (ซ้ำ)"},
+  {en:"wane", th:"ลดลง"},
+  {en:"yearn", th:"โหยหา"},
+  {en:"zenith", th:"จุดสูงสุด"})
+
+// ---------- Utilities ----------
+const $ = id => document.getElementById(id);
+function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]); }
+
+// load/save players
+function loadPlayers(){
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+  catch(e) { return {}; }
+}
+function savePlayers(obj){ localStorage.setItem(STORAGE_KEY, JSON.stringify(obj)); }
+
+// rank calc by cumulative totalCorrect
+function calcRank(totalCorrect){
+  // find highest rank whose min <= totalCorrect
+  let last = RANKS[0].name;
+  for(let i=0;i<RANKS.length;i++){
+    if(totalCorrect >= RANKS[i].min) last = RANKS[i].name;
+  }
+  return last;
+}
+
+// difficulty split helper
+function splitByDifficulty(words){
+  // Assume WORDS length >= 500; map index ranges to difficulty:
+  // easy: first 200, medium: next 200, hard: last 100
+  const easy = [], medium = [], hard = [];
+  const N = words.length;
+  const eCut = Math.floor(N * 0.4);   // ~40% easiest
+  const mCut = Math.floor(N * 0.8);   // next 40%
+  for(let i=0;i<N;i++){
+    if(i < eCut) easy.push(words[i]);
+    else if(i < mCut) medium.push(words[i]);
+    else hard.push(words[i]);
+  }
+  return { easy, medium, hard };
+}
+
+// pick distractor translations (thai) distinct from correct
+function pickThaiDistractors(correctEn, count=3){
+  const pool = WORDS.filter(w => w.en !== correctEn);
+  const picked = shuffle(pool).slice(0, count);
+  return picked.map(p => p.th);
+}
+
+// generate a vocab-only question (ask "What is 'en'?" with Thai options)
+function makeVocabQuestion(wordObj){
+  const correctTH = wordObj.th;
+  const distractors = pickThaiDistractors(wordObj.en, 3);
+  const opts = shuffle([correctTH, ...distractors]);
+  return {
+    type: 'vocab',
+    question: wordObj.en,
+    options: opts,
+    answer: opts.indexOf(correctTH),
+    explanation: `${wordObj.en} แปลว่า ${wordObj.th}` // explanation shown after answer
+  };
+}
+
+// generate a quiz of `total` questions mixing difficulties
+function generateQuiz(total){
+  // Ensure WORDS exists and is large enough
+  if(!Array.isArray(WORDS) || WORDS.length < 50){
+    throw new Error('WORDS array is missing or too small — ต้องมี WORDS (500 คำ) ในสคริปต์ก่อนเรียก generateQuiz');
+  }
+
+  const { easy, medium, hard } = splitByDifficulty(WORDS);
+
+  // mix ratios (you can tune these)
+  const ratio = { easy: 0.5, medium: 0.35, hard: 0.15 };
+  const easyCount = Math.round(total * ratio.easy);
+  const mediumCount = Math.round(total * ratio.medium);
+  let hardCount = total - easyCount - mediumCount;
+
+  // pick samples
+  const pick = (arr, n) => shuffle(arr).slice(0, Math.min(n, arr.length));
+  const selected = [...pick(easy, easyCount), ...pick(medium, mediumCount), ...pick(hard, hardCount)];
+  // if due to rounding we have less than total, fill from full pool
+  if(selected.length < total){
+    const needed = total - selected.length;
+    const extras = shuffle(WORDS.filter(w => !selected.includes(w))).slice(0, needed);
+    selected.push(...extras);
+  }
+  // convert each to vocab question
+  return shuffle(selected).map(w => makeVocabQuestion(w));
+}
+
+// ---------- App state & DOM refs ----------
+const players = loadPlayers();
+let currentPlayer = null;
+let questions = [];
 let qIndex = 0;
 let correct = 0;
 let wrongList = [];
 let fontSize = 18;
 
-const $ = id=>document.getElementById(id);
 const btnStart = $('btnStart');
 const playerNameInput = $('playerName');
 const loginSection = $('login');
@@ -264,23 +455,11 @@ const wrongListEl = $('wrongList');
 const btnPlayAgain = $('btnPlayAgain');
 const btnBackHome = $('btnBackHome');
 
-// state storage: players data map in localStorage under key 'ev_players'
-function loadPlayers(){
-  try{ return JSON.parse(localStorage.getItem('ev_players')||'{}'); }
-  catch(e){ return {}; }
-}
-function savePlayers(obj){ localStorage.setItem('ev_players', JSON.stringify(obj)); }
-
-let players = loadPlayers();
-let currentPlayer = null;
-
-// initialize UI
-updateSavedUI();
+// update saved UI
 function updateSavedUI(){
   currentPlayerEl.textContent = '-';
   currentRankEl.textContent = '-';
   bestScoreEl.textContent = '-';
-  // if last player stored, show
   const last = localStorage.getItem('ev_last_player');
   if(last && players[last]){
     currentPlayerEl.textContent = last;
@@ -288,126 +467,26 @@ function updateSavedUI(){
     bestScoreEl.textContent = (players[last].best===undefined)?'-':players[last].best+'%';
   }
 }
+updateSavedUI();
 
-
-// ------------------------ helper utils ------------------------
-function shuffle(a){ return a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]); }
-
-function pickDistractors(correctEn, count=3){
-  // choose random distinct translations (th) as distractors
-  const pool = WORDS.filter(w=>w.en!==correctEn);
-  const picked = shuffle(pool).slice(0,count);
-  return picked.map(p=>p.th);
-}
-
-// generate mixed question set from WORDS
-// Mix strategy: 75% vocab Q (English word -> Thai options), 25% fill-in sentences (simple templates)
-function generateQuiz(total){
-  const quiz = [];
-  const wordsShuffled = shuffle(WORDS).slice(0, total);
-  for(let i=0;i<wordsShuffled.length;i++){
-    const w = wordsShuffled[i];
-    // decide type
-    if(Math.random() < 0.75){
-      // vocab question: "What is 'word'?"
-      const correct = w.th;
-      const distract = pickDistractors(w.en,3);
-      const options = shuffle([correct, ...distract]);
-      quiz.push({
-        type: 'vocab',
-        question: w.en,
-        options: options,          // Thai options
-        answer: options.indexOf(correct),
-        explanation: `${w.en} แปลว่า ${w.th}`
-      });
-    } else {
-      // fill-in sentence (simple templates)
-      const templates = [
-        {tpl: "I ____ to the %s.", pos:'verb'},
-        {tpl: "She ____ a %s.", pos:'verbnoun'},
-        {tpl: "They have %s every day.", pos:'noun'},
-        {tpl: "He likes to %s in the %s.", pos:'verbplace'}
-      ];
-      const t = templates[Math.floor(Math.random()*templates.length)];
-      // choose another word as answer candidate depending on pos
-      // we will pick common verbs or nouns
-      const verbPool = ['eat','drink','go','play','read','write','watch','listen','sleep','run','walk','swim','sing','dance','study','work'];
-      const placePool = ['park','school','library','market','beach','garden','station','home','office'];
-      // choose answer word
-      let answerWord = w.en;
-      let questionText = '';
-      let options = [];
-      if(t.pos === 'verb'){
-        // answer should be verb - if w.en not verb, pick random verb and also include distractors
-        const correct = verbPool[Math.floor(Math.random()*verbPool.length)];
-        answerWord = correct;
-        questionText = t.tpl.replace('%s','park');
-        options = shuffle([correct, ...shuffle(verbPool).filter(v=>v!==correct).slice(0,3)]);
-      } else if(t.pos === 'verbnoun'){
-        // She ____ a <noun> => verb needed
-        const correct = verbPool[Math.floor(Math.random()*verbPool.length)];
-        answerWord = correct;
-        questionText = t.tpl.replace('%s', 'book');
-        options = shuffle([correct, ...shuffle(verbPool).filter(v=>v!==correct).slice(0,3)]);
-      } else if(t.pos === 'noun'){
-        const correct = w.en; // use the selected word as noun
-        answerWord = correct;
-        questionText = t.tpl.replace('%s', correct);
-        // distractors: pick other nouns from WORDS
-        const nounPool = WORDS.map(x=>x.en).filter(e=>e!==correct);
-        options = shuffle([correct, ...shuffle(nounPool).slice(0,3)]);
-      } else if(t.pos === 'verbplace'){
-        const correct = verbPool[Math.floor(Math.random()*verbPool.length)];
-        answerWord = correct;
-        questionText = t.tpl.replace('%s','play').replace('%s','park');
-        options = shuffle([correct, ...shuffle(verbPool).filter(v=>v!==correct).slice(0,3)]);
-      }
-      quiz.push({
-        type:'fill',
-        question: questionText.replace('____', '_____'),
-        options: options,
-        answer: options.indexOf(answerWord),
-        explanation: `คำตอบคือ '${answerWord}' เพราะ...`
-      });
-    }
-  }
-  return quiz;
-}
-
-// ------------------------ rank logic ------------------------
-const RANKS = [
-  {id:0,name:'Novice',min:0},
-  {id:1,name:'Beginner',min:20},
-  {id:2,name:'Intermediate',min:40},
-  {id:3,name:'Advanced',min:60},
-  {id:4,name:'Expert',min:80}
-];
-
-function calcRankByPct(pct){
-  let r = RANKS[0].name;
-  for(let i=RANKS.length-1;i>=0;i--){
-    if(pct>=RANKS[i].min){ r = RANKS[i].name; break; }
-  }
-  return r;
-}
-
-// ------------------------ game flow ------------------------
-btnStart.addEventListener('click', ()=>{
+// ---------- UI & Flow ----------
+btnStart.addEventListener('click', () => {
   const name = playerNameInput.value.trim();
   if(!name){ alert('กรุณาใส่ชื่อผู้เล่น'); return; }
   currentPlayer = name;
   localStorage.setItem('ev_last_player', name);
-  if(!players[name]) players[name] = {best:0,rank:'Novice',played:0};
+  if(!players[name]) players[name] = { best: 0, played: 0, rank: 'Novice', totalCorrect: 0 };
   savePlayers(players);
   startRound();
   updateSavedUI();
 });
 
 function startRound(){
-  // reset
+  // reset round state
   questions = generateQuiz(TOTAL_PER_ROUND);
   qIndex = 0; correct = 0; wrongList = [];
   playerDisplay.textContent = currentPlayer;
+  // show UI
   gameSection.classList.remove('hidden');
   loginSection.classList.add('hidden');
   $('scoreDisplay').textContent = '0';
@@ -418,91 +497,88 @@ function startRound(){
 function renderQuestion(){
   const q = questions[qIndex];
   qIndexEl.textContent = `${qIndex+1} / ${questions.length}`;
-  if(q.type==='vocab'){
-    questionText.textContent = `What is "${q.question}"?`;
-    translationHint.textContent = 'เลือกคำแปลที่ถูกต้อง';
-  } else {
-    questionText.textContent = q.question;
-    translationHint.textContent = 'เติมคำในช่องว่างให้เหมาะสม';
-  }
+  questionText.textContent = `What is "${q.question}"?`;
+  translationHint.textContent = 'เลือกคำแปลภาษาไทยที่ถูกต้อง';
   choicesEl.innerHTML = '';
-  q.options.forEach((opt, idx)=>{
+  q.options.forEach((opt, idx) => {
     const b = document.createElement('button');
     b.className = 'choiceBtn';
     b.textContent = opt;
     b.style.fontSize = fontSize + 'px';
-    b.onclick = ()=> handleChoice(b, idx);
+    b.onclick = () => handleChoice(b, idx);
     choicesEl.appendChild(b);
   });
   feedbackEl.textContent = '';
-  $('btnNext').classList.add('hidden');
+  btnNext.classList.add('hidden');
 }
 
 function handleChoice(btn, idx){
   const q = questions[qIndex];
-  // disable all
-  Array.from(choicesEl.children).forEach(b=>b.disabled = true);
+  // disable all choices
+  Array.from(choicesEl.children).forEach(c => c.disabled = true);
   if(idx === q.answer){
     btn.classList.add('correct');
     correct++;
-    feedbackEl.textContent = 'ถูกต้อง 🎉 ' + (q.explanation || '');
+    feedbackEl.textContent = 'ถูกต้อง! ' + (q.explanation || '');
   } else {
     btn.classList.add('wrong');
     feedbackEl.textContent = `ผิด — คำตอบที่ถูกคือ: ${q.options[q.answer]} — ${q.explanation || ''}`;
-    // show correct
+    // highlight correct
     Array.from(choicesEl.children)[q.answer].classList.add('correct');
-    wrongList.push({q: q.question, your: q.options[idx], correct: q.options[q.answer], type: q.type});
+    wrongList.push({ q: q.question, your: q.options[idx], correct: q.options[q.answer] });
   }
-  $('scoreDisplay').textContent = correct;
-  // show next button or finish after short delay
-  $('btnNext').classList.remove('hidden');
+  scoreDisplay.textContent = correct;
+  btnNext.classList.remove('hidden');
 }
 
-$('btnNext').addEventListener('click', ()=>{
+btnNext.addEventListener('click', () => {
   qIndex++;
   if(qIndex < questions.length) renderQuestion();
   else finishRound();
 });
 
-$('btnEnd').addEventListener('click', ()=>{
+btnEnd.addEventListener('click', () => {
   if(confirm('ต้องการจบเกมก่อนหรือไม่?')) finishRound();
 });
 
 function finishRound(){
-  // compute percentage
+  // round pct
   const pct = Math.round((correct / questions.length) * 100);
-  // update player record
-  players[currentPlayer] = players[currentPlayer] || {best:0,played:0,rank:'Novice'};
+  // update player cumulative stats
+  players[currentPlayer] = players[currentPlayer] || { best:0,played:0,rank:'Novice', totalCorrect:0 };
   players[currentPlayer].played = (players[currentPlayer].played||0) + 1;
+  players[currentPlayer].totalCorrect = (players[currentPlayer].totalCorrect||0) + correct; // cumulative
+  // update best pct for this round if higher
   if(pct > (players[currentPlayer].best||0)) players[currentPlayer].best = pct;
-  players[currentPlayer].rank = calcRankByPct(pct);
+  // update rank by cumulative totalCorrect (Expert needs >=100)
+  players[currentPlayer].rank = calcRank(players[currentPlayer].totalCorrect);
   savePlayers(players);
 
-  // show result
+  // show results
   gameSection.classList.add('hidden');
   resultSection.classList.remove('hidden');
-  resultSummary.textContent = `${currentPlayer}, คุณได้ ${correct} / ${questions.length} (${pct}%)`;
+  resultSummary.textContent = `${currentPlayer}, คุณได้ ${correct} / ${questions.length} (${pct}%). (สะสมถูกทั้งหมด ${players[currentPlayer].totalCorrect})`;
   resultRank.textContent = players[currentPlayer].rank;
+
   wrongListEl.innerHTML = '';
-  if(wrongList.length===0){
+  if(wrongList.length === 0){
     wrongListEl.innerHTML = '<li>ไม่มีคำตอบผิด — เยี่ยมมาก!</li>';
   } else {
-    wrongList.forEach(w=>{
+    wrongList.forEach(w => {
       const li = document.createElement('li');
       li.textContent = `${w.q} — ถูก: ${w.correct} / คุณตอบ: ${w.your}`;
       wrongListEl.appendChild(li);
     });
   }
-  // update saved UI
   updateSavedUI();
 }
 
-btnPlayAgain.addEventListener('click', ()=>{
+$('btnPlayAgain').addEventListener('click', () => {
   resultSection.classList.add('hidden');
   startRound();
 });
 
-btnBackHome.addEventListener('click', ()=>{
+$('btnBackHome').addEventListener('click', () => {
   resultSection.classList.add('hidden');
   loginSection.classList.remove('hidden');
   localStorage.setItem('ev_last_player', currentPlayer);
@@ -510,16 +586,16 @@ btnBackHome.addEventListener('click', ()=>{
 });
 
 // font controls
-fontInc.addEventListener('click', ()=>{
+fontInc.addEventListener('click', () => {
   fontSize = Math.min(30, fontSize + 2);
-  document.querySelectorAll('.choiceBtn').forEach(b=>b.style.fontSize = fontSize + 'px');
+  document.querySelectorAll('.choiceBtn').forEach(b => b.style.fontSize = fontSize + 'px');
   questionText.style.fontSize = (fontSize+2) + 'px';
 });
-fontDec.addEventListener('click', ()=>{
+fontDec.addEventListener('click', () => {
   fontSize = Math.max(12, fontSize - 2);
-  document.querySelectorAll('.choiceBtn').forEach(b=>b.style.fontSize = fontSize + 'px');
+  document.querySelectorAll('.choiceBtn').forEach(b => b.style.fontSize = fontSize + 'px');
   questionText.style.fontSize = (fontSize+2) + 'px';
 });
 
-// Expose $ for internal use
+// init expose
 window.$ = $;
