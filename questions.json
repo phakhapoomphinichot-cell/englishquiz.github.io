@@ -1,0 +1,26 @@
+[
+    {
+        "question": "Apple",
+        "options": ["Apple", "Banana", "Car", "Dog"],
+        "answer": 0,
+        "image": "images/apple.jpg"
+    },
+    {
+        "question": "She ____ to school every day.",
+        "options": ["go", "goes", "going", "went"],
+        "answer": 1,
+        "image": "images/school.jpg"
+    },
+    {
+        "question": "Dog",
+        "options": ["Cat", "Dog", "Horse", "Fish"],
+        "answer": 1,
+        "image": "images/dog.jpg"
+    },
+    {
+        "question": "I ____ water every morning.",
+        "options": ["drink", "drinks", "drinking", "drank"],
+        "answer": 0,
+        "image": "images/water.jpg"
+    }
+]
