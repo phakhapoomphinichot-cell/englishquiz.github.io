@@ -1,76 +1,64 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>English Vocabulary Trainer</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Rank Trainer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>English Vocabulary Trainer</h1>
-      <p class="muted">Multiple choice </p>
-    </header>
+  <div id="app">
+    <h1>🧠 English Rank Trainer</h1>
 
-    <main>
-      <section id="login">
-        <label>ชื่อผู้เล่น:
-          <input id="playerName" placeholder="พิมพ์ชื่อเพื่อเริ่ม" />
-        </label>
-        <button id="btnStart" class="btn">เริ่ม</button>
-        <div class="saved-info">
-          <span>ผู้เล่นปัจจุบัน: <strong id="currentPlayer">-</strong></span>
-          <span>แรงค์: <strong id="currentRank">-</strong></span>
-          <span>Best: <strong id="bestScore">-</strong></span>
-        </div>
-      </section>
+    <!-- หน้าล็อกอิน -->
+    <section id="login">
+      <h2>เริ่มต้นการฝึกคำศัพท์</h2>
+      <input type="text" id="playerName" placeholder="กรอกชื่อผู้เล่น..." />
+      <button id="btnStart">เริ่มเกม</button>
 
-      <section id="game" class="hidden">
-        <div class="topline">
-          <div>Player: <strong id="playerDisplay"></strong></div>
-          <div>Rank: <strong id="rankDisplay"></strong></div>
-          <div>Score: <strong id="scoreDisplay">0</strong>/<span id="totalQ">0</span></div>
-        </div>
+      <div id="savedPlayer">
+        <p>ผู้เล่นล่าสุด: <span id="currentPlayer">-</span></p>
+        <p>แรงค์: <span id="currentRank">-</span></p>
+        <p>คะแนนดีที่สุด: <span id="bestScore">-</span></p>
+      </div>
+    </section>
 
-        <div id="qArea" class="card">
-          <div id="qIndex" class="qindex">1 / 20</div>
-          <div id="questionText" class="question"></div>
-          <div id="translationHint" class="hint"></div>
-          <div id="choices" class="choices"></div>
-          <div id="feedback" class="feedback"></div>
-          <div class="controls">
-            <button id="btnNext" class="btn ghost hidden">ถัดไป</button>
-            <button id="btnEnd" class="btn red">จบเกม</button>
-          </div>
-        </div>
+    <!-- หน้าคำถาม -->
+    <section id="game" class="hidden">
+      <div class="topbar">
+        <span>ผู้เล่น: <b id="playerDisplay"></b></span>
+        <span>แรงค์: <b id="rankDisplay"></b></span>
+        <span>คะแนน: <b id="scoreDisplay">0</b>/<b id="totalQ"></b></span>
+      </div>
 
-        <div class="small-controls">
-          <label>ขนาดตัวอักษร:
-            <button id="fontInc" class="btn">A+</button>
-            <button id="fontDec" class="btn ghost">A-</button>
-          </label>
-        </div>
-      </section>
+      <div class="qbox">
+        <h2 id="qIndex"></h2>
+        <p id="questionText"></p>
+        <p id="translationHint" class="hint"></p>
+        <div id="choices"></div>
+        <p id="feedback"></p>
+        <button id="btnNext" class="hidden">ถัดไป</button>
+        <button id="btnEnd">จบเกม</button>
+      </div>
 
-      <section id="result" class="panel hidden">
-        <h2>ผลการทดสอบ</h2>
-        <p id="resultSummary"></p>
-        <p>แรงค์ปัจจุบัน: <strong id="resultRank"></strong></p>
-        <div>
-          <h3>คำที่ตอบผิด</h3>
-          <ul id="wrongList"></ul>
-        </div>
-        <div class="result-actions">
-          <button id="btnPlayAgain" class="btn">เล่นอีกครั้ง</button>
-          <button id="btnBackHome" class="btn ghost">กลับหน้าแรก</button>
-        </div>
-      </section>
-    </main>
+      <div class="fontControls">
+        <button id="fontInc">A+</button>
+        <button id="fontDec">A-</button>
+      </div>
+    </section>
 
-    <footer>
-      <small>จัดทำโดย: กูเองคนไม่อ้วน</small>
-    </footer>
+    <!-- หน้าผลลัพธ์ -->
+    <section id="result" class="hidden">
+      <h2>สรุปผลการเล่น</h2>
+      <p id="resultSummary"></p>
+      <p>แรงค์ปัจจุบัน: <b id="resultRank"></b></p>
+      <h3>คำตอบที่ตอบผิด</h3>
+      <ul id="wrongList"></ul>
+      <div class="buttons">
+        <button id="btnPlayAgain">เล่นอีกครั้ง</button>
+        <button id="btnBackHome">กลับหน้าแรก</button>
+      </div>
+    </section>
   </div>
 
   <script src="script.js"></script>
