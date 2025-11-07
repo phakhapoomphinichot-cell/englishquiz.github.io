@@ -8,57 +8,26 @@
 </head>
 <body>
   <div id="app">
-    <h1>🧠 English Rank Trainer</h1>
+    <h1>ฝึกคำศัพท์ภาษาอังกฤษ </h1>
 
-    <!-- หน้าล็อกอิน -->
-    <section id="login">
-      <h2>เริ่มต้นการฝึกคำศัพท์</h2>
-      <input type="text" id="playerName" placeholder="กรอกชื่อผู้เล่น..." />
-      <button id="btnStart">เริ่มเกม</button>
+    <div id="login-container">
+      <input type="text" id="username" placeholder="ใส่ชื่อผู้เล่น...">
+      <button id="start-btn">เริ่มเกม</button>
+    </div>
 
-      <div id="savedPlayer">
-        <p>ผู้เล่นล่าสุด: <span id="currentPlayer">-</span></p>
-        <p>แรงค์: <span id="currentRank">-</span></p>
-        <p>คะแนนดีที่สุด: <span id="bestScore">-</span></p>
-      </div>
-    </section>
-
-    <!-- หน้าคำถาม -->
-    <section id="game" class="hidden">
-      <div class="topbar">
-        <span>ผู้เล่น: <b id="playerDisplay"></b></span>
-        <span>แรงค์: <b id="rankDisplay"></b></span>
-        <span>คะแนน: <b id="scoreDisplay">0</b>/<b id="totalQ"></b></span>
+    <div id="game-container" style="display:none;">
+      <div id="player-info">
+        👤 <span id="player-name"></span> | 🏆 Rank: <span id="rank">Rookie</span> | ⭐ คะแนน: <span id="score">0</span>
       </div>
 
-      <div class="qbox">
-        <h2 id="qIndex"></h2>
-        <p id="questionText"></p>
-        <p id="translationHint" class="hint"></p>
-        <div id="choices"></div>
-        <p id="feedback"></p>
-        <button id="btnNext" class="hidden">ถัดไป</button>
-        <button id="btnEnd">จบเกม</button>
-      </div>
+      <div id="question-container"></div>
+      <div id="options-container"></div>
 
-      <div class="fontControls">
-        <button id="fontInc">A+</button>
-        <button id="fontDec">A-</button>
-      </div>
-    </section>
+      <!-- ✅ แสดงรูปตอบถูก/ผิด -->
+      <img id="feedback-img" src="" alt="feedback" style="display:none; width:120px; margin:20px auto;">
 
-    <!-- หน้าผลลัพธ์ -->
-    <section id="result" class="hidden">
-      <h2>สรุปผลการเล่น</h2>
-      <p id="resultSummary"></p>
-      <p>แรงค์ปัจจุบัน: <b id="resultRank"></b></p>
-      <h3>คำตอบที่ตอบผิด</h3>
-      <ul id="wrongList"></ul>
-      <div class="buttons">
-        <button id="btnPlayAgain">เล่นอีกครั้ง</button>
-        <button id="btnBackHome">กลับหน้าแรก</button>
-      </div>
-    </section>
+      <button id="next-btn" style="display:none;">ข้อถัดไป</button>
+    </div>
   </div>
 
   <script src="script.js"></script>
