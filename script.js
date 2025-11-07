@@ -1,7 +1,7 @@
 // script.js (updated for vocab-only quiz + mixed difficulty + cumulative rank thresholds)
 
 // ---------- CONFIG ----------
-const TOTAL_PER_ROUND = 25; // จำนวนคำต่อรอบ (ปรับได้)
+const TOTAL_PER_ROUND = 30; // จำนวนคำต่อรอบ (ปรับได้)
 const STORAGE_KEY = 'ev_players'; // localStorage key
 // Rank thresholds are based on cumulative totalCorrect
 const RANKS = [
@@ -13,57 +13,7 @@ const RANKS = [
 ];
 
 const WORDS = [
-  { en: "apple", th: "แอปเปิล; ผลไม้" },
-  { en: "book", th: "หนังสือ" },
-  { en: "cat", th: "แมว" },
-  { en: "dog", th: "สุนัข" },
-  { en: "food", th: "อาหาร" },
-  { en: "water", th: "น้ำ" },
-  { en: "house", th: "บ้าน" },
-  { en: "car", th: "รถยนต์" },
-  { en: "school", th: "โรงเรียน" },
-  { en: "teacher", th: "ครู" },
-  { en: "student", th: "นักเรียน" },
-  { en: "table", th: "โต๊ะ" },
-  { en: "chair", th: "เก้าอี้" },
-  { en: "pen", th: "ปากกา" },
-  { en: "pencil", th: "ดินสอ" },
-  { en: "door", th: "ประตู" },
-  { en: "window", th: "หน้าต่าง" },
-  { en: "computer", th: "คอมพิวเตอร์" },
-  { en: "phone", th: "โทรศัพท์" },
-  { en: "music", th: "ดนตรี" },
-  { en: "movie", th: "ภาพยนตร์" },
-  { en: "city", th: "เมือง" },
-  { en: "country", th: "ประเทศ" },
-  { en: "job", th: "งาน" },
-  { en: "money", th: "เงิน" },
-  { en: "family", th: "ครอบครัว" },
-  { en: "friend", th: "เพื่อน" },
-  { en: "love", th: "ความรัก" },
-  { en: "happy", th: "มีความสุข" },
-  { en: "sad", th: "เศร้า" },
-  { en: "fast", th: "เร็ว" },
-  { en: "slow", th: "ช้า" },
-  { en: "big", th: "ใหญ่" },
-  { en: "small", th: "เล็ก" },
-  { en: "close", th: "ปิด" },      
-  { en: "open", th: "เปิด" },
-  { en: "clean", th: "สะอาด" },
-  { en: "dirty", th: "สกปรก" },
-  { en: "strong", th: "แข็งแรง" },
-  { en: "weak", th: "อ่อนแอ" },
-  { en: "hot", th: "ร้อน" },
-  { en: "cold", th: "เย็น" },
-  { en: "beautiful", th: "สวยงาม" },
-  { en: "ugly", th: "น่าเกลียด" },
-  { en: "easy", th: "ง่าย" },
-  { en: "difficult", th: "ยาก" },
-  { en: "morning", th: "เช้า" },
-  { en: "evening", th: "เย็น" },
-  { en: "night", th: "กลางคืน" },
-  { en: "day", th: "วัน" },
-  { en: "rain", th: "ฝน" }
+  // --- Specialized / Technical Vocabulary (50) ---
   { en: "algorithm", th: "อัลกอริทึม; กระบวนการคำนวณ" },
   { en: "analysis", th: "การวิเคราะห์" },
   { en: "architecture", th: "สถาปัตยกรรม" },
@@ -99,7 +49,6 @@ const WORDS = [
   { en: "variable", th: "ตัวแปร" },
   { en: "velocity", th: "ความเร็ว" },
   { en: "voltage", th: "แรงดันไฟฟ้า" },
-  { en: "architecture", th: "โครงสร้างระบบ" },
   { en: "database", th: "ฐานข้อมูล" },
   { en: "encryption", th: "การเข้ารหัส" },
   { en: "neuron", th: "เซลล์ประสาท" },
@@ -110,10 +59,14 @@ const WORDS = [
   { en: "optimization", th: "การทำให้เหมาะสมที่สุด" },
   { en: "criterion", th: "เกณฑ์การประเมิน" },
   { en: "sustainability", th: "ความยั่งยืน" },
-  { en: "ecosystem", th: "ระบบนิเวศ" },
   { en: "inference", th: "การอนุมาน" },
   { en: "derivation", th: "การได้มาจาก" },
-  { en: "iteration", th: "การวนซ้ำ" }
+  { en: "iteration", th: "การวนซ้ำ" },
+  { en: "mechanical", th: "เชิงกล" },
+  { en: "hypothesis", th: "สมมติฐาน" },
+  { en: "automation", th: "ระบบอัตโนมัติ" },
+
+  // --- Formal / Business / Academic Vocabulary (50) ---
   { en: "acknowledge", th: "รับทราบ" },
   { en: "allocate", th: "จัดสรร" },
   { en: "amendment", th: "การแก้ไขเพิ่มเติม (กฎหมายหรือเอกสาร)" },
@@ -165,7 +118,7 @@ const WORDS = [
   { en: "partnership", th: "ความร่วมมือ" },
   { en: "submission", th: "การส่งเอกสาร" }
 ];
-// ---------- Utilities ----------
+
 const $ = id => document.getElementById(id);
 function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]); }
 
