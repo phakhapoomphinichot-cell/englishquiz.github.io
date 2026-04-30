@@ -1,9 +1,9 @@
 // script.js (updated for vocab-only quiz + mixed difficulty + cumulative rank thresholds)
 
 // ---------- CONFIG ----------
-const TOTAL_PER_ROUND = 30; // จำนวนคำต่อรอบ (ปรับได้)
-const STORAGE_KEY = 'ev_players'; // localStorage key
-// Rank thresholds are based on cumulative totalCorrect
+const TOTAL_PER_ROUND = 30; 
+const STORAGE_KEY = 'ev_players'; 
+
 const RANKS = [
   { name: 'Novice', min: 0 },
   { name: 'Beginner', min: 10 },
