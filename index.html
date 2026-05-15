@@ -1,70 +1,28 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>English Rank Trainer</title>
+  <title>Periodic Table — Interactive Animation</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <h1>🧠 English Rank Trainer</h1>
 
-    <!-- หน้าล็อกอิน -->
-    <section id="login">
-      <h2>เริ่มต้นการฝึกคำศัพท์</h2>
-      <input type="text" id="playerName" placeholder="กรอกชื่อผู้เล่น..." />
-      <button id="btnStart">เริ่มเกม</button>
+  <header>
+    <h1>PERIODIC TABLE</h1>
+  </header>
 
-      <div id="savedPlayer">
-        <p>ผู้เล่นล่าสุด: <span id="currentPlayer">-</span></p>
-        <p>แรงค์: <span id="currentRank">-</span></p>
-        <p>คะแนนดีที่สุด: <span id="bestScore">-</span></p>
-      </div>
-    </section>
-
-    <!-- หน้าคำถาม -->
-    <section id="game" class="hidden">
-      <div class="topbar">
-        <span>ผู้เล่น: <b id="playerDisplay"></b></span>
-        <span>แรงค์: <b id="rankDisplay"></b></span>
-        <span>คะแนน: <b id="scoreDisplay">0</b>/<b id="totalQ"></b></span>
-      </div>
-
-      <div class="qbox">
-        <h2 id="qIndex"></h2>
-        <p id="questionText"></p>
-        <p id="translationHint" class="hint"></p>
-        <div id="choices"></div>
-        <p id="feedback"></p>
-        <button id="btnNext" class="hidden">ถัดไป</button>
-        <button id="btnEnd">จบเกม</button>
-      </div>
-
-      <div class="fontControls">
-        <button id="fontInc">A+</button>
-        <button id="fontDec">A-</button>
-      </div>
-    </section>
-
-    <!-- หน้าผลลัพธ์ -->
-    <section id="result" class="hidden">
-      <h2>สรุปผลการเล่น</h2>
-      <p id="resultSummary"></p>
-      <p>แรงค์ปัจจุบัน: <b id="resultRank"></b></p>
-      <h3>คำตอบที่ตอบผิด</h3>
-      <ul id="wrongList"></ul>
-      <div class="buttons">
-        <button id="btnPlayAgain">เล่นอีกครั้ง</button>
-        <button id="btnBackHome">กลับหน้าแรก</button>
-      </div>
-    </section>
+  <div class="controls">
+    <button class="toggle is-active" id="btn-table"  onclick="setLayout('table')">Table</button>
+    <button class="toggle"           id="btn-sphere" onclick="setLayout('sphere')">Sphere</button>
+    <button class="toggle"           id="btn-helix"  onclick="setLayout('helix')">Helix</button>
+    <button class="toggle"           id="btn-grid"   onclick="setLayout('grid')">Grid</button>
   </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <div id="scene">
+    <div id="scene-content"></div>
+  </div>
 
+  <div class="tooltip" id="tooltip"></div>
 
   <script src="script.js"></script>
 </body>
