@@ -1,137 +1,155 @@
-/* 🌃 CYBERPUNK DARK NEON STYLE */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
+/* ── VARIABLES ──────────────────────────────────────────────────────────────── */
+:root {
+  --bg: #050a0e;
+  --c-nonmetal:   #39ff14;
+  --c-noble:      #ff073a;
+  --c-alkali:     #ffe600;
+  --c-alkaline:   #ff9500;
+  --c-transition: #00d4ff;
+  --c-post:       #bf5fff;
+  --c-metalloid:  #00ffcc;
+  --c-halogen:    #ff4da6;
+  --c-lanthanide: #ff6b35;
+  --c-actinide:   #35a7ff;
+  --transition-time: 0.8s;
+}
+
+/* ── RESET & BASE ────────────────────────────────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-    font-family: 'Orbitron', 'Poppins', Arial, sans-serif;
-    background: radial-gradient(circle at center, #0a0014 0%, #000000 80%);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #e0e0ff;
-    letter-spacing: 0.5px;
+  background: var(--bg);
+  color: #fff;
+  font-family: 'Share Tech Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* กล่องหลัก */
-.container {
-    background-color: rgba(20, 10, 30, 0.95);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 25px rgba(255, 0, 255, 0.2);
-    width: 340px;
-    text-align: center;
-    backdrop-filter: blur(6px);
-    transition: all 0.3s ease;
+/* ── HEADER ─────────────────────────────────────────────────────────────────── */
+header {
+  text-align: center;
+  padding: 24px 0 10px;
 }
 
-.container:hover {
-    box-shadow: 0 0 35px rgba(0, 255, 255, 0.35);
-}
-
-/* หัวข้อ */
 h1 {
-    font-size: 26px;
-    margin-bottom: 25px;
-    color: #ff00cc;
-    text-shadow: 0 0 10px #ff00cc, 0 0 20px #00ffff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1rem, 3vw, 2rem);
+  letter-spacing: 0.15em;
+  color: #00d4ff;
+  text-shadow: 0 0 20px #00d4ff, 0 0 60px #00d4ff44;
 }
 
-/* กลุ่มฟอร์ม */
-.form-group {
-    margin: 15px 0;
+/* ── CONTROLS ───────────────────────────────────────────────────────────────── */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  flex-wrap: wrap;
 }
 
-label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-    color: #b0aaff;
+.toggle {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  padding: 7px 22px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #666;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.25s;
+  text-transform: uppercase;
 }
 
-/* อินพุต / เลือก */
-select, input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    font-size: 16px;
-    border: 1px solid #2a004f;
-    border-radius: 6px;
-    background-color: #0f001f;
-    color: #e0e0ff;
-    transition: all 0.3s ease;
+.toggle:hover {
+  color: #fff;
+  border-color: #fff;
 }
 
-select:focus, input:focus {
-    border-color: #00ffff;
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+.toggle.is-active {
+  background: #00d4ff22;
+  border-color: #00d4ff;
+  color: #00d4ff;
+  box-shadow: 0 0 12px #00d4ff55;
 }
 
-/* ปุ่ม */
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background: linear-gradient(90deg, #00ffff, #ff00cc);
-    border: none;
-    border-radius: 8px;
-    color: #0a0014;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px #ff00cc;
+/* ── SCENE ──────────────────────────────────────────────────────────────────── */
+#scene {
+  width: 100%;
+  perspective: 900px;
+  padding: 10px 0 40px;
 }
 
-button:hover {
-    box-shadow: 0 0 20px #00ffff, 0 0 30px #ff00cc;
-    transform: scale(1.03);
+#scene-content {
+  position: relative;
+  width: 100%;
+  transition: transform var(--transition-time) ease;
 }
 
-/* ปุ่มที่ถูกเลือก (เวลาตอบ) */
-button.selected {
-    background: linear-gradient(90deg, #ff0077, #7700ff);
-    color: #fff;
-    box-shadow: 0 0 25px #ff00cc;
-    transform: scale(1.05);
+/* ── ELEMENT BUTTON ─────────────────────────────────────────────────────────── */
+.element {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  transition:
+    left      var(--transition-time) cubic-bezier(.77,0,.18,1),
+    top       var(--transition-time) cubic-bezier(.77,0,.18,1),
+    transform var(--transition-time) cubic-bezier(.77,0,.18,1),
+    opacity   var(--transition-time) ease,
+    box-shadow 0.2s;
+  box-shadow: 0 0 6px currentColor44;
+  font-family: 'Share Tech Mono', monospace;
+  color: inherit;
 }
 
-/* กล่องผลลัพธ์ */
-.hidden {
-    display: none;
+.element:hover {
+  box-shadow: 0 0 16px currentColor, 0 0 32px currentColor88;
+  z-index: 100;
+  transform: scale(1.15) !important;
 }
 
-#quizResults {
-    margin-top: 25px;
-    padding: 15px;
-    border: 1px solid #550077;
-    background-color: rgba(10, 0, 25, 0.8);
-    border-radius: 10px;
-    text-align: left;
-    box-shadow: 0 0 20px rgba(255, 0, 255, 0.1);
+.element-number { font-size: 7px;   line-height: 1;    opacity: 0.7;  }
+.element-symbol { font-size: 17px;  font-weight: bold; line-height: 1.1; }
+.element-name   { font-size: 5.5px; line-height: 1;    opacity: 0.75; }
+
+/* ── CATEGORY COLORS ────────────────────────────────────────────────────────── */
+[data-cat="nonmetal"]   { color: var(--c-nonmetal);   }
+[data-cat="noble"]      { color: var(--c-noble);      }
+[data-cat="alkali"]     { color: var(--c-alkali);     }
+[data-cat="alkaline"]   { color: var(--c-alkaline);   }
+[data-cat="transition"] { color: var(--c-transition); }
+[data-cat="post"]       { color: var(--c-post);       }
+[data-cat="metalloid"]  { color: var(--c-metalloid);  }
+[data-cat="halogen"]    { color: var(--c-halogen);    }
+[data-cat="lanthanide"] { color: var(--c-lanthanide); }
+[data-cat="actinide"]   { color: var(--c-actinide);   }
+
+/* ── TOOLTIP ────────────────────────────────────────────────────────────────── */
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: #0d1a22ee;
+  border: 1px solid currentColor;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  line-height: 1.6;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.15s;
+  max-width: 160px;
 }
 
-#quizResults h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #00ffff;
-    text-shadow: 0 0 8px #00ffff;
-}
-
-ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-li {
-    margin-bottom: 10px;
-    border-left: 3px solid #ff00cc;
-    padding-left: 10px;
-    color: #ccc;
-}
-
-li em {
-    font-style: italic;
-    color: #00ffff;
-}
+.tooltip.show { opacity: 1; }
